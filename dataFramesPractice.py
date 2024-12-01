@@ -9,12 +9,16 @@ data = np.array([[1, 4], [2,5], [3,6]])
 #creating dataframes without numpy
 data = [['Tobi', 17], ['Harleen', 18], ['Georgia', 18]]
 df = pd.DataFrame(data, columns=['Name', 'Age'])
-print(df)
+#print(df)
 
 #creating a DataFrame from a dictionary
 states = ['Birmingham', 'London', 'Liverpool', 'Manchester']
-population = [981,492, 992,239, 300,492, 922,103]
+population = [981492, 992239, 300492, 922103]
 
 dictStates = {
-  'States': states, 
+  'States': states,
+  'Population' : population
 }
+
+dfPopulation = pd.DataFrame(dictStates)
+print(dfPopulation)
