@@ -21,4 +21,10 @@ dictStates = {
 }
 
 dfPopulation = pd.DataFrame(dictStates)
-print(dfPopulation)
+#print(dfPopulation)
+
+#creating a DataFrame from csv
+dfExams = pd.read_csv('StudentsPerformance.csv')
+
+#show first 5 rows in df
+print(dfExams.head())
