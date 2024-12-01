@@ -6,3 +6,9 @@ def createDataframe(student_data: List[List[int]]) -> pd.DataFrame:
 
 #ignore list error thats leetcode IDE
 
+#displaying first 3 rows of the DataFrame
+import pandas as pd
+
+def selectFirstRows(employees: pd.DataFrame) -> pd.DataFrame:
+    result = employees.head(3)
+    return result
