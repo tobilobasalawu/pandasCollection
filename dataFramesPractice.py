@@ -8,5 +8,13 @@ data = np.array([[1, 4], [2,5], [3,6]])
 
 #creating dataframes without numpy
 data = [['Tobi', 17], ['Harleen', 18], ['Georgia', 18]]
-df = pd.DataFrame(data, columns=['Name', 'Age'], index=['row1', 'row2', 'row3'])
+df = pd.DataFrame(data, columns=['Name', 'Age'])
 print(df)
+
+#creating a DataFrame from a dictionary
+states = ['Birmingham', 'London', 'Liverpool', 'Manchester']
+population = [981,492, 992,239, 300,492, 922,103]
+
+dictStates = {
+  'States': states, 
+}
