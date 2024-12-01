@@ -26,5 +26,18 @@ dfPopulation = pd.DataFrame(dictStates)
 #creating a DataFrame from csv
 dfExams = pd.read_csv('StudentsPerformance.csv')
 
-#show first 5 rows in df
-print(dfExams.head())
+#show first 5 rows in df - default head is 5
+#print(dfExams.head())
+
+#how to show the DataFrame
+#print(dfExams.head(10))
+
+# to show the last rows(10)
+print(dfExams.tail(10)) 
+
+#to get the number of rows of the dataframe
+print(dfExams.shape)
+
+#to display all the rows
+pd.set_option('display.max_rows', 1000)
+print(dfExams)
