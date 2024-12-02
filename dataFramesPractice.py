@@ -59,6 +59,7 @@ print(dfExams.describe()) #GIVES basic statistics like max, min,count mean...
 '''
 
 
+'''
 #Functions
 print(len(dfExams)) # no of rows in a dataframe
 
@@ -67,3 +68,13 @@ print(max(dfExams.index)) #returns the maximun index in a df
 print(min(dfExams.index)) #returns the minimum index in a df
 
 print(type(dfExams)) #the type of the dataframe
+
+print(round(dfExams, 2)) #round the content 2 dp
+'''
+
+
+
+#selection one column in dataframe
+#print(dfExams['gender'])
+print(type(dfExams['gender']))
+print(dfExams['gender'].head(6))
