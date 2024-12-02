@@ -42,6 +42,7 @@ dfExams = pd.read_csv('StudentsPerformance.csv')
 pd.set_option('display.max_rows', 1000)
 #print(dfExams)
 
+'''
 #Attributes in pandas
 print(dfExams.shape) #getting the no if rows and columns
 
@@ -54,3 +55,15 @@ print(dfExams.dtypes) #to get the data types
 print(dfExams.info()) #to get infor about the table
 
 print(dfExams.describe()) #GIVES basic statistics like max, min,count mean...
+
+'''
+
+
+#Functions
+print(len(dfExams)) # no of rows in a dataframe
+
+print(max(dfExams.index)) #returns the maximun index in a df
+
+print(min(dfExams.index)) #returns the minimum index in a df
+
+print(type(dfExams)) #the type of the dataframe
