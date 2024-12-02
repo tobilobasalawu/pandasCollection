@@ -46,3 +46,11 @@ pd.set_option('display.max_rows', 1000)
 print(dfExams.shape) #getting the no if rows and columns
 
 print(dfExams.index) #access the index attribute
+
+print(dfExams.columns) #gettng each column name and its attribute
+
+print(dfExams.dtypes) #to get the data types
+
+print(dfExams.info()) #to get infor about the table
+
+print(dfExams.describe()) #GIVES basic statistics like max, min,count mean...
