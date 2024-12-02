@@ -36,8 +36,13 @@ dfExams = pd.read_csv('StudentsPerformance.csv')
 #print(dfExams.tail(10)) 
 
 #to get the number of rows of the dataframe
-print(dfExams.shape)
+#print(dfExams.shape)
 
 #to display all the rows
 pd.set_option('display.max_rows', 1000)
 #print(dfExams)
+
+#Attributes in pandas
+print(dfExams.shape) #getting the no if rows and columns
+
+print(dfExams.index) #access the index attribute
