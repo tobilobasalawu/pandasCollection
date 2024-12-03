@@ -76,5 +76,9 @@ print(round(dfExams, 2)) #round the content 2 dp
 
 #selection one column in dataframe
 #print(dfExams['gender'])
-print(type(dfExams['gender']))
-print(dfExams['gender'].head(6))
+#print(type(dfExams['gender']))
+#print(dfExams['math score'].head(6)) #getting the first 6 rows of the column math score
+
+#selecting two or more column in a dataframe
+result = dfExams[['gender', 'math score', 'reading score', 'writing score']]
+print(dfExams.loc[3])
