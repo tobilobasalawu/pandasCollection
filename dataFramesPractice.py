@@ -2,83 +2,68 @@ import pandas as pd #importing pandas module
 import numpy as np #importin numpy module
 
 
-#to create an df using numpy
-data = np.array([[1, 4], [2,5], [3,6]])
-#print(pd.DataFrame(data, index=['row1', 'row2', 'row3'], columns=['col1', 'col2']))
-
-#creating dataframes without numpy
-data = [['Tobi', 17], ['Harleen', 18], ['Georgia', 18]]
-df = pd.DataFrame(data, columns=['Name', 'Age'])
-#print(df)
-
-#creating a DataFrame from a dictionary
-states = ['Birmingham', 'London', 'Liverpool', 'Manchester']
-population = [981492, 992239, 300492, 922103]
-
-dictStates = {
-  'States': states,
-  'Population' : population
+# Define the structure with the estimated hours and tasks provided earlier
+tasks_data = {
+    "Mile Stone": [
+        "Setup", "Setup", "Setup", "Setup",
+        "Model 1", "Model 1", "Model 1", "Model 1",
+        "Model 2", "Model 2", "Model 2", "Model 2",
+        "Testing", "Testing", "Testing", "User Training", "User Training"
+    ],
+    "Task": [
+        "Upgrade head office infrastructure",
+        "Install and configure physical server",
+        "Testing hardware",
+        "Create Test Plan",
+        "Develop module 1: Back-end database",
+        "Develop module 2: Maintenance management",
+        "Develop module 3: User interface",
+        "Develop module 4: Data analysis",
+        "Deploy modules",
+        "Installation of hardware at two UK airports",
+        "Unit Testing",
+        "Integration Testing",
+        "Fixing and regression testing for major fault",
+        "Fixing and regression testing for minor faults",
+        "Create a Test Plan",
+        "User/Acceptance Testing",
+        "Staff Training"
+    ],
+    "Hours": [40, 40, 56, 7, 100, 95, 50, 105, 28, 60, 48, 64, 48, 20, 28, 13, 15],
+    "Staff": [
+        "Hou Zijin", "Hou Zijin", "Hou Zijin", "Hou Zijin",
+        "Darren Long", "Zuzanna Misaczek", "Peter Evans", "Darren Long",
+        "Ellis Soto", "Hou Zijin", "Ellis Soto", "Ellis Soto",
+        "Ellis Soto", "Ellis Soto", "Ellis Soto", "Zuzanna Misaczek", "Zuzanna Misaczek"
+    ],
 }
 
-dfPopulation = pd.DataFrame(dictStates)
-#print(dfPopulation)
+# Define the number of hours in a week (7 hours/day * 5 days)
+hours_per_week = 7 * 5
 
-#creating a DataFrame from csv
-dfExams = pd.read_csv('StudentsPerformance.csv')
+# Calculate weekly breakdowns
+weekly_hours = []
+for hours in tasks_data["Hours"]:
+    breakdown = []
+    remaining_hours = hours
+    while remaining_hours > 0:
+        if remaining_hours > hours_per_week:
+            breakdown.append(hours_per_week)
+            remaining_hours -= hours_per_week
+        else:
+            breakdown.append(remaining_hours)
+            remaining_hours = 0
+    # Fill weeks with 0 if not using all weeks
+    while len(breakdown) < 14:
+        breakdown.append(0)
+    weekly_hours.append(breakdown)
 
-#show first 5 rows in df - default head is 5
-#print(dfExams.head())
+# Add weekly breakdowns to the DataFrame
+weekly_columns = {f"Week {i+1}": [week[i] for week in weekly_hours] for i in range(14)}
+tasks_data.update(weekly_columns)
 
-#how to show the DataFrame
-#print(dfExams.head(10))
+# Create DataFrame for the Gantt chart
+gantt_chart_df_complete = pd.DataFrame(tasks_data)
 
-# to show the last rows(10)
-#print(dfExams.tail(10)) 
-
-#to get the number of rows of the dataframe
-#print(dfExams.shape)
-
-#to display all the rows
-pd.set_option('display.max_rows', 1000)
-#print(dfExams)
-
-'''
-#Attributes in pandas
-print(dfExams.shape) #getting the no if rows and columns
-
-print(dfExams.index) #access the index attribute
-
-print(dfExams.columns) #gettng each column name and its attribute
-
-print(dfExams.dtypes) #to get the data types
-
-print(dfExams.info()) #to get infor about the table
-
-print(dfExams.describe()) #GIVES basic statistics like max, min,count mean...
-
-'''
-
-
-'''
-#Functions
-print(len(dfExams)) # no of rows in a dataframe
-
-print(max(dfExams.index)) #returns the maximun index in a df
-
-print(min(dfExams.index)) #returns the minimum index in a df
-
-print(type(dfExams)) #the type of the dataframe
-
-print(round(dfExams, 2)) #round the content 2 dp
-'''
-
-
-
-#selection one column in dataframe
-#print(dfExams['gender'])
-#print(type(dfExams['gender']))
-#print(dfExams['math score'].head(6)) #getting the first 6 rows of the column math score
-
-#selecting two or more column in a dataframe
-result = dfExams[['gender', 'math score', 'reading score', 'writing score']]
-print(dfExams.loc[3])
+# Display the completed Gantt chart structure
+print(gantt_chart_df_complete)
