@@ -6,12 +6,14 @@ print(df)
 
 #Complex Iloc operations
 
+'''
 #Select all rows where the value in column 2 is greater than 50.
 ans = df[df.iloc[:,1] >50]
 print(ans['Math'])
+'''
 
-
-
+#Select the last 3 rows and the last 2 columns.
+print(df.iloc[-3:,-2:])
 
 
 
