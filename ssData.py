@@ -8,14 +8,16 @@ print(df)
 
 '''
 #Select all rows where the value in column 2 is greater than 50.
-ans = df[df.iloc[:,1] >50]
-print(ans['Math'])
-'''
+ans = df[df.iloc[:,2] > 80]
+print(ans['Science'])
 
 #Select the last 3 rows and the last 2 columns.
 print(df.iloc[-3:,-2:])
 
+'''
 
+#Select rows 1 to 5 and columns 0, 3, and 4.
+print(df.iloc[:5, [0,1,3]])
 
 
 
