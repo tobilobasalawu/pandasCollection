@@ -11,4 +11,7 @@ print(df)
 #print(df.iloc[:4,[1,2]])
 
 #Find the sum of all English marks using iloc
-print(df.iloc[:, 3].sum())
+#print(df.iloc[:, 3].sum())
+
+#Retrieve the last two rows of the DataFrame using iloc.
+print(df.iloc[-2:])
