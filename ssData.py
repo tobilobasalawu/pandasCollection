@@ -4,6 +4,13 @@ import pandas as pd
 df = pd.read_csv('student_scores.csv')
 print(df)
 
+#Complex Iloc operations
+
+
+
+
+
+'''
 #Extract the value of Science marks for Diana using iloc
 #print(df.iloc[3,2])
 
@@ -25,5 +32,6 @@ print(df)
 
 #ans = 
 #print(ans)
-df['Total'] = df.iloc[:,[1,2,3]].sum(axis=1)
-print(df)
+#df['Total'] = df.iloc[:,[1,2,3]].sum(axis=1)
+#print(df)
+'''
