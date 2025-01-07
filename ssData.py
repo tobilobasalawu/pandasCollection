@@ -21,4 +21,9 @@ print(df)
 #print(df.iloc[:3, 1].mean())
 
 #Extract the rows for Alice and Bob and print only their English scores using
-print(df.iloc[:2, 3])
+#print(df.iloc[:2, 3])
+
+#ans = 
+#print(ans)
+df['Total'] = df.iloc[:,[1,2,3]].sum(axis=1)
+print(df)
