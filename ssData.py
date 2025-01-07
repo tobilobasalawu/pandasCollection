@@ -14,5 +14,8 @@ print(df)
 #print(df.iloc[:, 3].sum())
 
 #Replace the Science score of Charlie with 80 using iloc.
-ans = df.iloc[2,2] = 80
-print(df)
+#ans = df.iloc[2,2] = 80
+#print(df)
+
+#Find the mean of the Math scores for the first three students using iloc.
+print(df.iloc[:3, 1].mean())
