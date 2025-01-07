@@ -18,4 +18,7 @@ print(df)
 #print(df)
 
 #Find the mean of the Math scores for the first three students using iloc.
-print(df.iloc[:3, 1].mean())
+#print(df.iloc[:3, 1].mean())
+
+#Extract the rows for Alice and Bob and print only their English scores using
+print(df.iloc[:2, 3])
