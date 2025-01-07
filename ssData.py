@@ -13,5 +13,6 @@ print(df)
 #Find the sum of all English marks using iloc
 #print(df.iloc[:, 3].sum())
 
-#Retrieve the last two rows of the DataFrame using iloc.
-print(df.iloc[-2:])
+#Replace the Science score of Charlie with 80 using iloc.
+ans = df.iloc[2,2] = 80
+print(df)
