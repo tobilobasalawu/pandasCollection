@@ -8,8 +8,8 @@ print(df)
 
 '''
 #Select all rows where the value in column 2 is greater than 50.
-ans = df[df.iloc[:,2] > 80]
-print(ans['Science'])
+ans = df.loc[df.iloc[:, 2] > 80]
+print(ans)
 
 #Select the last 3 rows and the last 2 columns.
 print(df.iloc[-3:,-2:])
@@ -21,8 +21,6 @@ print(df.iloc[:5, [0,1,3]])
 df.iloc[1, 0] = df.iloc[1, [1, 2, 3]].sum()
 print(df)
 '''
-
-
 
 
 
