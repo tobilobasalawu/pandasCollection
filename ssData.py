@@ -14,12 +14,13 @@ print(ans['Science'])
 #Select the last 3 rows and the last 2 columns.
 print(df.iloc[-3:,-2:])
 
-'''
-
 #Select rows 1 to 5 and columns 0, 3, and 4.
 print(df.iloc[:5, [0,1,3]])
 
-
+#Update the value in the second row, first column (Name) to be the sum of the values in the second row of "Math", "Science", and "English".
+df.iloc[1, 0] = df.iloc[1, [1, 2, 3]].sum()
+print(df)
+'''
 
 
 
