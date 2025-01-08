@@ -2,9 +2,8 @@ import pandas as pd
 df = pd.read_csv("student_scores.csv")
 print(df)
 
-print(df.loc[df.loc[:, 'Math'] == df.loc[:, 'English'], 'Name'])
 
-'''
+
 #all rows where the "Math" column is greater than 85, and only the "Name" and "Math" columns.
 row = df[df.loc[:, 'Math'] > 85]
 print(row.loc[:, ['Name', 'Math']])
@@ -36,4 +35,5 @@ print(ans)
 #sorting values in descending order
 df.sort_values(by='Science',inplace=True, ascending=False)
 print(df.loc[:2, 'Science'])
-'''
+
+print(df.loc[df.loc[:, 'Math'] == df.loc[:, 'English'], 'Name'])

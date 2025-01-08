@@ -6,7 +6,6 @@ print(df)
 
 #Complex Iloc operations
 
-'''
 #Select all rows where the value in column 2 is greater than 50.
 ans = df.loc[df.iloc[:, 2] > 80]
 print(ans)
@@ -43,12 +42,6 @@ print(df)
 a = df[df.iloc[:, 1] % 5 == 0]
 print(a.iloc[:, 1])
 
-'''
-
-
-
-
-'''
 #Extract the value of Science marks for Diana using iloc
 #print(df.iloc[3,2])
 
@@ -72,4 +65,3 @@ print(a.iloc[:, 1])
 #print(ans)
 #df['Total'] = df.iloc[:,[1,2,3]].sum(axis=1)
 #print(df)
-'''
