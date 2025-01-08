@@ -24,7 +24,6 @@ print(df)
 #Create a new column 'Difference' which is the difference between the values in "English" and "Math" columns
 df['Difference'] = df.iloc[:, 3] - df.iloc[:, 1]
 print(df)
-'''
 
 #Select the first 3 rows and reverse the order of columns "Name", "Science", and "Math"
 row = df[['Name', 'Science', 'Math']]
@@ -32,6 +31,11 @@ print(row.iloc[:3, ::-1])
 
 
 
+'''
+
+#Create a subset of the DataFrame with only rows where the value in the "English" column is between 80 and 90.
+ans = df[df.iloc[:, 3] < 90]
+print(ans.iloc[:, 3])
 
 
 
