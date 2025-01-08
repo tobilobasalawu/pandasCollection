@@ -2,10 +2,9 @@ import pandas as pd
 df = pd.read_csv("student_scores.csv")
 print(df)
 
-#a subset of the DataFrame where the "English" column has values greater than or equal to 85, and update their "Math" scores to 100
-ans = df.loc[df.loc[:, 'English'] >= 85]
-ans.loc[:,'Math'] = 100
-print(ans)
+#sorting values in descending order
+df.sort_values(by='Science',inplace=True, ascending=False)
+print(df.loc[:2, 'Science'])
 
 '''
 #all rows where the "Math" column is greater than 85, and only the "Name" and "Math" columns.
@@ -30,4 +29,9 @@ print(df)
 
 #Finding the average scores of science colum
 print(df.loc[:, 'Science'].mean())
+
+#a subset of the DataFrame where the "English" column has values greater than or equal to 85, and update their "Math" scores to 100
+ans = df.loc[df.loc[:, 'English'] >= 85]
+ans.loc[:,'Math'] = 100
+print(ans)
 '''
