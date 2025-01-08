@@ -22,6 +22,11 @@ df.iloc[1, 0] = df.iloc[1, [1, 2, 3]].sum()
 print(df)
 '''
 
+#Create a new column 'Difference' which is the difference between the values in "English" and "Math" columns
+df['Difference'] = df.iloc[:, 3] - df.iloc[:, 1]
+print(df)
+
+
 
 
 
