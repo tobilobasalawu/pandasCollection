@@ -19,3 +19,6 @@ print(df)
 
 #5. 5.	Use .loc to show rows where Salary is greater than 55,000
 #print(df.loc[df.loc[:, 'Salary'] > 55000])
+
+
+#Basic Selection with iloc
