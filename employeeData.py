@@ -22,3 +22,18 @@ print(df)
 
 
 #Basic Selection with iloc
+
+#6.	Use .iloc to display the first row of the DataFrame
+#print(df.iloc[0])
+
+#7.	Use .iloc to display the third row.
+#print(df.iloc[2])
+
+#8. Use .iloc to display the Salary and Experience columns for the first two rows.
+#print(df.iloc[:2, [2,3]])
+
+#9.	Use .iloc to display all rows but only the Age column.
+#print(df.iloc[:, -1])
+
+#10.	Select rows 1 to 3 (inclusive of 1, exclusive of 4) and columns 2 to 4 (exclusive of column 4) using .iloc.
+#print(df.iloc[1:4, 2:4])
