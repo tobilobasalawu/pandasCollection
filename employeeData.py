@@ -37,3 +37,6 @@ print(df)
 
 #10.	Select rows 1 to 3 (inclusive of 1, exclusive of 4) and columns 2 to 4 (exclusive of column 4) using .iloc.
 #print(df.iloc[1:4, 2:4])
+
+#Advanced Selection with loc
+
