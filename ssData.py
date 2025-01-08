@@ -20,11 +20,15 @@ print(df.iloc[:5, [0,1,3]])
 #Update the value in the second row, first column (Name) to be the sum of the values in the second row of "Math", "Science", and "English".
 df.iloc[1, 0] = df.iloc[1, [1, 2, 3]].sum()
 print(df)
-'''
 
 #Create a new column 'Difference' which is the difference between the values in "English" and "Math" columns
 df['Difference'] = df.iloc[:, 3] - df.iloc[:, 1]
 print(df)
+'''
+
+#Select the first 3 rows and reverse the order of columns "Name", "Science", and "Math"
+row = df[['Name', 'Science', 'Math']]
+print(row.iloc[:3, ::-1])
 
 
 
