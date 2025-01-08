@@ -65,3 +65,17 @@ print(df)
 #print(df.iloc[-2:])
 
 #17. 17.	Use .iloc to modify the Salary in the second row (Bob) to 65,000.
+#df.iloc[1, 2] = 65000
+#print(df)
+
+#18. 18.	Use .iloc to select rows 2 to 4 and columns 1 to 3.
+#print(df.iloc[2:5, 1:4])
+
+#19.	Use .iloc to display the second column (Department) for all rows.
+#print(df.iloc[:, 1])
+
+#20.	Use .iloc to display the Age of the last three employees.
+#print(df.iloc[-3:, -1])
+
+#21.	Combine .loc and .iloc to filter employees with a Salary greater than 60,000 and only display the first two columns (Name and Department).
+print(df.loc[df.iloc[:, 2] > 60000 , ['Name', 'Department']])
