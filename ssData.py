@@ -29,15 +29,16 @@ print(df)
 row = df[['Name', 'Science', 'Math']]
 print(row.iloc[:3, ::-1])
 
-
-
-'''
-
 #Create a subset of the DataFrame with only rows where the value in the "English" column is between 80 and 90.
 ans = df[df.iloc[:, 3] < 90]
 print(ans.iloc[:, 3])
 
-
+'''
+#Replace all values in the "Math" column with the square of the values in the "Science" column for rows where the value in the "Science" column is less than 90
+scienceColumn = df[df.iloc[:,2] < 90]
+df.iloc[:3, 1] = scienceColumn.iloc[:3, 2] ** 2
+df.iloc[-1, 1] = scienceColumn.iloc[-1, 2] ** 2
+print(df)
 
 
 
