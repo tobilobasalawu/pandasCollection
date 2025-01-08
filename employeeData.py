@@ -60,3 +60,8 @@ print(df)
 #df.loc[len(df)] = ['Frank', 'Finance', 57000, 4, 29]
 #print(df)
 
+#Advanced Selection using iloc
+#16.	Use .iloc to display the last two rows of the DataFrame.
+#print(df.iloc[-2:])
+
+#17. 17.	Use .iloc to modify the Salary in the second row (Bob) to 65,000.
