@@ -57,5 +57,6 @@ print(df)
 #print(df)
 
 #15.	Use .loc to add a new row for an employee named "Frank" in the Finance department with a Salary of 57,000, Experience of 4 years, and an Age of 29.
-df.loc[len(df)] = ['Frank', 'Finance', 57000, 4, 29]
-print(df)
+#df.loc[len(df)] = ['Frank', 'Finance', 57000, 4, 29]
+#print(df)
+
