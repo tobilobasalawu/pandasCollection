@@ -40,3 +40,22 @@ print(df)
 
 #Advanced Selection with loc
 
+#11.	Use .loc to display employees with more than 6 years of experience
+#print(df.loc[df.loc[:, 'Experience'] > 6])
+
+#12.	Add a new column, Bonus, where the value is 5% of the Salary. Use .loc to calculate and assign the values.
+#df['Bonus'] = df.loc[:, 'Salary'] * 5/100
+#print(df)
+
+#13.	Use .loc to display only employees who are older than 30 and earn more than 55,000.
+#ans = df.loc[df.loc[:, 'Age'] > 30]
+#ans.loc[:, 'Salary'] > 55000
+#print(ans)
+
+#14. 14.	Use .loc to modify Charlie's Salary to 60,000.
+#df.loc[2, 'Salary'] = 60000
+#print(df)
+
+#15.	Use .loc to add a new row for an employee named "Frank" in the Finance department with a Salary of 57,000, Experience of 4 years, and an Age of 29.
+df.loc[len(df)] = ['Frank', 'Finance', 57000, 4, 29]
+print(df)
