@@ -27,7 +27,6 @@ print(newDf.loc[:,'Math'] > 80)
 
 oldDf = df.loc[df['Math'] > 85]
 print(oldDf.iloc[:, -2:])
-'''
 
 #Advanced Filtering
 df['TotalScore'] = df[['Math', 'Science', 'English']].sum(axis=1)
@@ -36,3 +35,11 @@ print(df.loc[df['TotalScore'] > 250])
 ans = df.iloc[::-1]
 ans.sort_values(by='Name',ascending=False, inplace=True)
 print(ans)
+'''
+
+#Mixed Indexing 
+ans = df.loc[df['Science'] > 80]
+#print(ans.iloc[:3])
+
+ss = df.iloc[1:5:2]
+print(ss.loc[:, ['Name', 'Math']])
