@@ -14,11 +14,18 @@ print(df.iloc[-2:, 2].mean())
 
 print(df.loc[df['English'] > df['Science'], ['Name', 'English', 'Science']])
 
-'''
-
 #Column Operations
 df['Math'] = df.iloc[:, 1] * 2
 print(df)
 
 df['Average_score'] = df.loc[:, ['Math', 'Science', 'English']].mean(axis=1)
 print(df)
+'''
+
+#Combining loc and iloc
+newDf = df.iloc[2:5]
+print(newDf.loc[:,'Math'] > 80)
+
+oldDf = df.loc[df['Math'] > 85]
+print(oldDf.iloc[:, -2:])
+
