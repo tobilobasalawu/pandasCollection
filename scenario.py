@@ -13,7 +13,20 @@ print(df.loc[(df['Science'] > 85) & (df['Math'] > 85)])
 df.loc[len(df)] = df[['Math', 'Science', 'English']].mean()
 df.iloc[5, 0] = 'Average'
 print(df)
-'''
 
 #Improvement Opportunity
 print(df.loc[df['English'] < df['Math'], ['Name', 'Math', 'English']])
+
+'''
+
+#Score distribution
+print(df.loc[:, ['Math', 'Science', 'English']].sum())
+
+plt.bar(['Math', 'Science', 'English'], df.loc[:, ['Math', 'Science', 'English']].sum())
+plt.xlabel('Subjects')
+plt.ylabel('Scores')
+
+plt.title('Score Distribution')
+
+plt.show()
+
