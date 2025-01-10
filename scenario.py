@@ -17,8 +17,6 @@ print(df)
 #Improvement Opportunity
 print(df.loc[df['English'] < df['Math'], ['Name', 'Math', 'English']])
 
-'''
-
 #Score distribution
 print(df.loc[:, ['Math', 'Science', 'English']].sum())
 
@@ -30,3 +28,13 @@ plt.title('Score Distribution')
 
 plt.show()
 
+
+'''
+#Trends in Math Scores
+df.sort_values(by='Math', ascending=False, inplace=True)
+
+plt.plot(df['Name'], df['Math'], marker = 'o')
+plt.xlabel('Names')
+plt.ylabel('Scores')
+plt.title('Trends in Math Scores')
+plt.show()
