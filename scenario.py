@@ -5,7 +5,7 @@ df = pd.read_csv('dataset.csv')
 
 print(df)
 
-'''
+
 #Top performers
 print(df.loc[(df['Science'] > 85) & (df['Math'] > 85)])
 
@@ -26,10 +26,11 @@ plt.ylabel('Scores')
 
 plt.title('Score Distribution')
 
+plt.savefig('score_distribution.png')
+
 plt.show()
 
 
-'''
 #Trends in Math Scores
 df.sort_values(by='Math', ascending=False, inplace=True)
 
@@ -37,4 +38,10 @@ plt.plot(df['Name'], df['Math'], marker = 'o')
 plt.xlabel('Names')
 plt.ylabel('Scores')
 plt.title('Trends in Math Scores')
+
+plt.savefig('top_scorers_pie_chart.png')
 plt.show()
+
+
+df.to_csv('student_performance_report.csv')
+
