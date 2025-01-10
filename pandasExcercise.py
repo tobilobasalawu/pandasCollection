@@ -20,7 +20,6 @@ print(df)
 
 df['Average_score'] = df.loc[:, ['Math', 'Science', 'English']].mean(axis=1)
 print(df)
-'''
 
 #Combining loc and iloc
 newDf = df.iloc[2:5]
@@ -28,4 +27,12 @@ print(newDf.loc[:,'Math'] > 80)
 
 oldDf = df.loc[df['Math'] > 85]
 print(oldDf.iloc[:, -2:])
+'''
 
+#Advanced Filtering
+df['TotalScore'] = df[['Math', 'Science', 'English']].sum(axis=1)
+print(df.loc[df['TotalScore'] > 250])
+
+ans = df.iloc[::-1]
+ans.sort_values(by='Name',ascending=False, inplace=True)
+print(ans)
