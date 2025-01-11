@@ -32,7 +32,6 @@ df.to_csv('top_performers.csv')
 
 plt.pie(df['Total'], labels=df['Name'], autopct="%1.1f%%")
 plt.show()
-'''
 
 #5 Trend Analysis of Science Scores
 df.sort_values(by='Science', ascending=False, inplace=True)
@@ -41,3 +40,9 @@ plt.plot(df['Name'], df['Science'], marker="o")
 plt.grid()
 plt.xlabel('Name')
 plt.show()
+'''
+
+print(df.loc[:2, ['Math', 'English']])
+
+df.iloc[4, 2] = 95
+print(df)
