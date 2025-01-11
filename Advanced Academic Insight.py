@@ -6,5 +6,11 @@ print(df)
 
 #Filter and Analyze High Performers
 
-print(df.loc[(df['Math'] > 85) & (df['English'] > df['Science'])])
+#print(df.loc[(df['Math'] > 85) & (df['English'] > df['Science'])])
 
+#Aggregate Scores by Subject
+
+average = df[['Math', 'Science', 'English']].mean()
+total = df[['Math', 'Science', 'English']].sum()
+newdf = pd.DataFrame({'Average' : average, 'Total' : total})
+newdf.to_csv('subject_aggregates.csv')
