@@ -3,45 +3,53 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('dataset.csv')
 
-print(df)
+#print(df)
 
 
 #Top performers
-print(df.loc[(df['Science'] > 85) & (df['Math'] > 85)])
+#print(df.loc[(df['Science'] > 85) & (df['Math'] > 85)])
 
 #Average Performer 
-df.loc[len(df)] = df[['Math', 'Science', 'English']].mean()
-df.iloc[5, 0] = 'Average'
+#df.loc[len(df)] = df[['Math', 'Science', 'English']].mean()
+#df.iloc[5, 0] = 'Average'
 print(df)
 
 #Improvement Opportunity
-print(df.loc[df['English'] < df['Math'], ['Name', 'Math', 'English']])
+#print(df.loc[df['English'] < df['Math'], ['Name', 'Math', 'English']])
 
 #Score distribution
-print(df.loc[:, ['Math', 'Science', 'English']].sum())
+#print(df.loc[:, ['Math', 'Science', 'English']].sum())
 
-plt.bar(['Math', 'Science', 'English'], df.loc[:, ['Math', 'Science', 'English']].sum())
-plt.xlabel('Subjects')
-plt.ylabel('Scores')
+#plt.bar(['Math', 'Science', 'English'], df.loc[:, ['Math', 'Science', 'English']].sum())
+#plt.xlabel('Subjects')
+#plt.ylabel('Scores')
+#plt.title('Score Distribution')
 
-plt.title('Score Distribution')
+#plt.savefig('score_distribution.png')
 
-plt.savefig('score_distribution.png')
+#plt.show()
 
+
+#Top Scorers Visualization
+df['Total'] = df[['Math', 'Science', 'English']].sum(axis=1)
+print(df)
+benchMark = df.loc[df['Total'] > 260]
+plt.pie(benchMark['Total'], autopct="%1.1f%%")
+plt.legend(benchMark['Name'])
+plt.title('Top Scorers Visualization')
 plt.show()
-
 
 #Trends in Math Scores
 df.sort_values(by='Math', ascending=False, inplace=True)
 
-plt.plot(df['Name'], df['Math'], marker = 'o')
-plt.xlabel('Names')
-plt.ylabel('Scores')
-plt.title('Trends in Math Scores')
+#plt.plot(df['Name'], df['Math'], marker = 'o')
+#plt.xlabel('Names')
+#plt.ylabel('Scores')
+#plt.title('Trends in Math Scores')
 
-plt.savefig('top_scorers_pie_chart.png')
-plt.show()
+#plt.savefig('top_scorers_pie_chart.png')
+#plt.show()
 
 
-df.to_csv('student_performance_report.csv')
+#df.to_csv('student_performance_report.csv')
 
