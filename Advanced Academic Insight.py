@@ -7,9 +7,8 @@ print(df)
 '''
 #Filter and Analyze High Performers
 
-#print(df.loc[(df['Math'] > 85) & (df['English'] > df['Science'])])
+print(df.loc[(df['Math'] > 85) & (df['English'] > df['Science'])])
 
-'''
 #Aggregate Scores by Subject
 
 average = df[['Math', 'Science', 'English']].mean()
@@ -23,4 +22,15 @@ plt.title('Custom Visualization')
 plt.xlabel('Subjects')
 plt.ylabel('Total Scores')
 
+plt.show()
+
+'''
+
+#Top Performers Visualization
+df['Total'] = df[['Math', 'Science', 'English']].sum(axis=1)
+print(df.loc[df['Total'] > 250])
+
+df.to_csv('top_performers.csv')
+
+plt.pie(df['Total'], labels=df['Name'], autopct="%1.1f%%")
 plt.show()
