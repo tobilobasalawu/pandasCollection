@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('dataset.csv')
 print(df)
 
-'''
+
 #Filter and Analyze High Performers
 
 print(df.loc[(df['Math'] > 85) & (df['English'] > df['Science'])])
@@ -40,9 +40,11 @@ plt.plot(df['Name'], df['Science'], marker="o")
 plt.grid()
 plt.xlabel('Name')
 plt.show()
-'''
 
+#mix iloc and loc
 print(df.loc[:2, ['Math', 'English']])
 
 df.iloc[4, 2] = 95
 print(df)
+
+
