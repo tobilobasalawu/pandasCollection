@@ -47,10 +47,10 @@ print(df)
 #df['Bonus'] = df.loc[:, 'Salary'] * 5/100
 #print(df)
 
-#13.	Use .loc to display only employees who are older than 30 and earn more than 55,000.
-#ans = df.loc[df.loc[:, 'Age'] > 30]
-#ans.loc[:, 'Salary'] > 55000
-#print(ans)
+13.	Use .loc to display only employees who are older than 30 and earn more than 55,000.
+ans = df.loc[df.loc[:, 'Age'] > 30]
+ans.loc[:, 'Salary'] > 55000
+print(ans)
 
 #14. 14.	Use .loc to modify Charlie's Salary to 60,000.
 #df.loc[2, 'Salary'] = 60000
