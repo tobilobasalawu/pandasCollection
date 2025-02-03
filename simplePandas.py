@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 df = pd.read_csv('kidsData.csv')
 print(df)
@@ -9,4 +10,5 @@ def firstFiveRows():
 def scienceHigh():
   print(df.loc[df['Science'] > 80])
 
-scienceHigh()
+def mathChart():
+  plt.bar(df[''])
