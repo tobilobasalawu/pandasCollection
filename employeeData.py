@@ -80,5 +80,3 @@ print(df)
 #21.	Combine .loc and .iloc to filter employees with a Salary greater than 60,000 and only display the first two columns (Name and Department).
 print(df.loc[df.iloc[:, 2] > 60000 , ['Name', 'Department']])
 
-#to save a csv file
-df.to_csv('MyName.csv')
