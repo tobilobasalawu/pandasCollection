@@ -30,6 +30,7 @@ def mathChart():
   plt.bar(df['Name'], df['Math'], color='blue')
   plt.xlabel('Names')
   plt.ylabel('Scores')
+  plt.grid()
   plt.title('Student Math Scores')
   plt.show()
 
