@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 df = pd.read_csv("student_scores.csv")
 print(df)
 
@@ -37,3 +39,7 @@ df.sort_values(by='Science',inplace=True, ascending=False)
 print(df.loc[:2, 'Science'])
 
 print(df.loc[df.loc[:, 'Math'] == df.loc[:, 'English'], 'Name'])
+
+def ScienceDate():
+  plt.bar(df['Science'], df['Name'], colors = 'blue')
+  plt.show()
