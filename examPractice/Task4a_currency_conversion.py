@@ -96,7 +96,7 @@ def trends_GBP_to_USD():
     print(seven_avg.loc[:, ['Date', 'GBP - USD']])
 
     plt.plot(round(seven_avg['Date'], 2), seven_avg['GBP - USD'])
-    plt.title("TRENDS/PATTERNS OVER THE LAST 7 DAYS - 'GBP - USD'")
+    plt.title("TRENDS OVER THE LAST 7 DAYS - 'GBP - USD'")
     plt.xlabel("Date")
     plt.ylabel("GBP - USD")
     plt.grid()
