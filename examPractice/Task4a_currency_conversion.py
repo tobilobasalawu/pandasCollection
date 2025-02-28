@@ -104,6 +104,9 @@ def trends_GBP_to_USD():
 
     #sys.exit(0)
 
+def trends_USD_to_GBP():
+    pass
+
 
 menu_choice = menu()
 currency = get_currency()
