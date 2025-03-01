@@ -105,7 +105,21 @@ def trends_GBP_to_USD():
     #sys.exit(0)
 
 def trends_USD_to_GBP():
-    pass
+    df = pd.read_csv("Task4a_data.csv")
+
+    print("######################################################")
+    print("")
+    print('Trends/patterns over time for USD TO GBP')
+    seven_avg = df.iloc[-7:]
+    plt.figure(figsize=(12,9))
+    print(seven_avg.loc[:, ['Date', 'USD - GBP']])
+
+    plt.plot(round(seven_avg['Date'], 2), seven_avg['USD - GBP'])
+    plt.title("TRENDS OVER THE LAST 7 DAYS - 'USD -GBP'")
+    plt.xlabel("Date")
+    plt.ylabel("USD - GBP")
+    plt.grid()
+    plt.show()
 
 
 menu_choice = menu()
