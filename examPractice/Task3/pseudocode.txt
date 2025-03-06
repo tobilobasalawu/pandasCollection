@@ -1,3 +1,38 @@
-user_destination_choice()
+// - This represents comment, explains the purpose of the code
+
+
+BEGIN FUNCTION user_destination_choice()
+    SET is_input_valid TO FALSE
+
+    SET [list of departure and destination] TO list_of_destination_and_depart 
+    //This is the list of travel options 1. DUB - LHR 2. DUB - LTN 3. DUB - MAN 4. EDI - LHR 5. EDI - LTN 6. EDI - MAN 7. GLA - LHR 8. GLA - LTN 9. GLA - MAN 10. LHR - DUB 11. LHR - EDI 12. LHR - GLA 13. LTN - DUB 14. LTN - EDI 15. MAN - DUB 16. MAN - EDI 17. MAN - GLA
+  
+
+    WHILE is_input_valid == FALSE
+
+        TRY
+            SEND list_of_destination_and_depart TO DISPLAY
+
+            SEND 'Enter the option of destination and departure airport from the menu: ' TO DISPLAY
+            RECIEVE user_destination_and_departure_choice AS INTEGER FROM KEYBOARD
+
+
+            IF user_destination_and_departure_choice < 1 AND user_destination_and_departure_choice > 17  THEN 
+                SEND 'You have selected an Invalid Choice, Please try Again! ' TO DISPLAY
+            ELSE
+                SEND 'You have selected ' + user_destination_and_departure_choice + ' as your travel destination and departure'  TO DISPLAY
+                SET is_input_valid TO TRUE
+            
+            END IF
+
+        CATCH ERROR FROM TRY
+            SEND 'Please only enter a number(INTEGER) from the menu displayed above' TO DISPLAY
+
+
+END FUNCTION
+
+
+
+
 date_of_depature()
 result_for_choice()
