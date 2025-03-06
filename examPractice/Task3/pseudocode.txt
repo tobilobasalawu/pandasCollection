@@ -60,4 +60,17 @@ BEGIN FUNCTION date_of_depature()
 END FUNCTION
 
 
-result_for_choice()
+BEGIN FUNCTION passengers_number_result_for_users_choice()
+
+    IMPORT PANDAS MODULE AS pd
+    SET pd.READ_CSV('FILE PATH') TO df
+
+    SET user_destination_and_departure_choice.SPLIT(' ') TO user_destination_and_departure_choice
+
+    SET df.LOC[:, user_depart_date] TO date_filtered_df
+    SET date_filtered_df.LOC[:, (df['From'] == user_destination_and_departure_choice[1]) & (df['TO'] == user_destination_and_departure_choice[3])] TO filtered_result
+
+    SEND 'This is a range of the number of passengers travelling on the selected date' TO DISPLAY
+    SEND 'filtered_result' TO DISPLAY
+
+END FUNCTION
