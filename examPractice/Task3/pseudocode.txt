@@ -32,7 +32,32 @@ BEGIN FUNCTION user_destination_choice()
 END FUNCTION
 
 
+BEGIN FUNCTION date_of_depature()
+
+    IMPORT DATETIME MODULE
+    IMPORT PANDAS MODULE AS pd
+
+    SET pd.READ_CSV('FILE PATH') TO df
+
+    SET is_date_valid TO FALSE
+
+    WHILE is_date_valid == FALSE
+        
+        SEND 'Please enter the date you wish to travel for the month of march (DD/MM/YYYY): ' FROM DISPLAY
+        RECIEVE user_depart_date FROM KEYBOARD
+
+        SET DATETIME.DATETIME.STRIPTIME(user_depart_date, %d%mm%yyyy%) TO user_depart_date
+
+        IF df[user_depart_date] THEN
+            SEND 'You've selected ' + user_depart_date + ' as your date for departure' TO DISPLAY
+            SET is_date_valid TO TRUE
+        
+        ELSE
+            SEND 'You have entered the an invalid date, Please Try Again! ' TO DISPLAY
+
+        END IF
+
+END FUNCTION
 
 
-date_of_depature()
 result_for_choice()
