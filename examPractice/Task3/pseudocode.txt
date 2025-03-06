@@ -1,0 +1,3 @@
+user_destination_choice()
+date_of_depature()
+result_for_choice()
