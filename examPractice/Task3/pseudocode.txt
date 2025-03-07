@@ -1,6 +1,5 @@
 // - This represents comment, explains the purpose of the code
 
-
 BEGIN FUNCTION user_destination_choice()
     SET is_input_valid TO FALSE
 
@@ -34,8 +33,8 @@ END FUNCTION
 
 BEGIN FUNCTION date_of_depature()
 
-    IMPORT DATETIME MODULE
-    IMPORT PANDAS MODULE AS pd
+    IMPORT DATETIME LIBRARY
+    IMPORT DATA HANDLING LIBRARY AS pd
 
     SET pd.READ_CSV('FILE PATH') TO df
 
@@ -60,9 +59,10 @@ BEGIN FUNCTION date_of_depature()
 END FUNCTION
 
 
-BEGIN FUNCTION passengers_number_result_for_users_choice()
+BEGIN FUNCTION passengers_result(user_destination_and_departure_choice, user_depart_date)
 
-    IMPORT PANDAS MODULE AS pd
+    IMPORT DATA HANDLING LIBRARY AS pd //Pandas Module
+
     SET pd.READ_CSV('FILE PATH') TO df
 
     SET user_destination_and_departure_choice.SPLIT(' ') TO user_destination_and_departure_choice
@@ -72,5 +72,15 @@ BEGIN FUNCTION passengers_number_result_for_users_choice()
 
     SEND 'This is a range of the number of passengers travelling on the selected date' TO DISPLAY
     SEND 'filtered_result' TO DISPLAY
+
+END FUNCTION
+
+
+BEGIN FUNCTION passengers_trends(filtered_result)
+	
+	IMPORT DATA VIUSALIZATION LIBRARY AS plt //MATPLOTLIB MODULE
+	
+	
+
 
 END FUNCTION
