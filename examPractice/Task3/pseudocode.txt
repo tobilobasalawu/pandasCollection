@@ -1,12 +1,12 @@
 // - This represents comment, explains the purpose of the code
 
 //FUNCTIONS
-user_destination_choice()
-date_of_depature()
-passengers_result()
-passengers_trends
+user_travel_choice() // For users to enter and select a choice for destination and departure
+date_of_depature() //For users to enter the date tehy wish to depart
+passengers_result() //Display the number of passengers for the selected data, depart and destination
+passengers_trends() //Display the trends overtime for the number of passengers for the selected data, depart and destination
 
-BEGIN FUNCTION user_destination_choice()
+BEGIN FUNCTION user_travel_choice()
     SET is_input_valid TO FALSE
 
     SET [list of departure and destination] TO list_of_destination_and_depart 
@@ -32,6 +32,8 @@ BEGIN FUNCTION user_destination_choice()
 
         CATCH ERROR FROM TRY
             SEND 'Please only enter a number(INTEGER) from the menu displayed above' TO DISPLAY
+
+    RETURN	user_destination_and_departure_choice
 
 
 END FUNCTION
@@ -62,6 +64,8 @@ BEGIN FUNCTION date_of_depature()
 
         END IF
 
+    RETURN user_depart_date
+
 END FUNCTION
 
 
@@ -69,7 +73,7 @@ BEGIN FUNCTION passengers_result(user_destination_and_departure_choice, user_dep
 
     IMPORT DATA HANDLING LIBRARY AS pd //Pandas Module
 
-    SET pd.READ_CSV('FILE PATH') TO df
+    SET pd.READ_CSV('Task3_data_November_22') TO df
 
     SET user_destination_and_departure_choice.SPLIT(' ') TO user_destination_and_departure_choice
 
@@ -79,14 +83,19 @@ BEGIN FUNCTION passengers_result(user_destination_and_departure_choice, user_dep
     SEND 'This is a range of the number of passengers travelling on the selected date' TO DISPLAY
     SEND 'filtered_result' TO DISPLAY
 
+    RETURN user_destination_and_departure_choice, filtered_result
+
 END FUNCTION
 
 
-BEGIN FUNCTION passengers_trends(filtered_result)
+BEGIN FUNCTION passengers_trends(user_destination_and_departure_choice, filtered_result)
 	
 	IMPORT DATA VIUSALIZATION LIBRARY AS plt //MATPLOTLIB MODULE
 	
-	
+	SET plt.BAR(user_destination_and_departure_choice, filtered_result) TO BAR_CHART
+    plt.XAXIS_LABEL('Number of passengers')
+    plt.YAXIS_LABEL('User destination and departure')
 
+    SEND BAR_CHART TO DISPLAY
 
 END FUNCTION

@@ -1,47 +1,5 @@
-BEGIN FUNCTION date_of_departure()
-    IMPORT DATETIME MODULE
-    IMPORT PANDAS MODULE AS pd
-
-    SET df TO pd.READ_CSV('FILE PATH')
-
-    SET is_date_valid TO FALSE
-
-    WHILE is_date_valid == FALSE
-        SEND 'Please enter the date you wish to travel for the month of March (DD/MM/YYYY): ' TO DISPLAY
-        RECIEVE user_depart_date FROM KEYBOARD
-
-        TRY
-            SET user_depart_date TO DATETIME.DATETIME.STRPTIME(user_depart_date, "%d/%m/%Y")
-
-            IF user_depart_date MONTH == 3 AND user_depart_date IN df COLUMNS THEN
-                SEND 'You have selected ' + user_depart_date + ' as your departure date' TO DISPLAY
-                SET is_date_valid TO TRUE
-            ELSE
-                SEND 'Invalid date. Please enter a date within March.' TO DISPLAY
-            END IF
-
-        CATCH ERROR FROM TRY
-            SEND 'Invalid format. Please enter date in DD/MM/YYYY format.' TO DISPLAY
-
-END FUNCTION
+SET plt.LINE_CHART(dates, passenger_counts) TO LINE_GRAPH
+plt.XAXIS_LABEL('Dates')
+plt.YAXIS_LABEL('Number of Passengers')
 
 
-BEGIN FUNCTION passengers_number_result_for_users_choice(user_destination_and_departure_choice, user_depart_date)
-    // Load the passenger data from CSV file
-    IMPORT PANDAS MODULE AS pd
-    SET df TO pd.READ_CSV('FILE PATH')
-
-    // Split user input to extract departure and destination airport codes
-    SET user_destination_and_departure_choice.SPLIT(' ') TO user_destination_and_departure_choice
-
-    // Filter dataset for the selected travel date
-    SET df.LOC[:, user_depart_date] TO date_filtered_df
-
-    // Further filter the dataset to show only flights matching user’s departure and destination
-    SET date_filtered_df.LOC[:, (df['From'] == user_destination_and_departure_choice[1]) & (df['TO'] == user_destination_and_departure_choice[3])] TO filtered_result
-
-    // Display the number of passengers for the selected flight and date
-    SEND 'This is the number of passengers traveling on the selected date:' TO DISPLAY
-    SEND filtered_result TO DISPLAY
-
-END FUNCTION
