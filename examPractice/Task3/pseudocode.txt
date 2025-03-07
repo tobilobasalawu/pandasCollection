@@ -1,5 +1,11 @@
 // - This represents comment, explains the purpose of the code
 
+//FUNCTIONS
+user_destination_choice()
+date_of_depature()
+passengers_result()
+passengers_trends
+
 BEGIN FUNCTION user_destination_choice()
     SET is_input_valid TO FALSE
 
