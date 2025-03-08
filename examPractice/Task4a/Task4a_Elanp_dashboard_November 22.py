@@ -148,6 +148,9 @@ def most_passengers_overtime(depart,dest,days):
 
     return extract_days
 
+def run_program():
+    pass
+
 
 main_menu_choice = main_menu()
 depart_airport = get_depart()
