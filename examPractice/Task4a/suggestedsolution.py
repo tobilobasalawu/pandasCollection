@@ -1,4 +1,5 @@
 import pandas as pd  # Importing pandas for data handling
+import matplotlib.pyplot as plt  # Importing matplotlib for data visualization
 
 
 def main_menu():
@@ -68,7 +69,7 @@ def get_data(depart, dest, days):
 
 
 def get_busiest_departure_airport():
-    """Finds the departure airport with the most passengers over time."""
+    """Finds the departure airport with the most passengers over time and displays it with a bar chart."""
     try:
         df = pd.read_csv('Task4a_data.csv')
     except FileNotFoundError:
@@ -84,9 +85,19 @@ def get_busiest_departure_airport():
     print(departures.to_string(index=False))
     print(f"\nThe busiest departure airport is {busiest_airport} with {max_passengers} passengers.")
 
+    # Plot results
+    plt.figure(figsize=(10, 5))
+    departures['Total'].plot(kind='bar', color='skyblue', edgecolor='black')
+    plt.title('Total Passengers per Departure Airport')
+    plt.xlabel('Airport')
+    plt.ylabel('Total Passengers')
+    plt.xticks(rotation=45)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+
 
 def get_am_pm_flights():
-    """Displays AM and PM flights for two selected routes."""
+    """Displays AM and PM flights for two selected routes with a bar chart."""
     print("Select first route:")
     dep1, dest1 = get_airport_choice("Enter departure: "), get_airport_choice("Enter destination: ")
     print("Select second route:")
@@ -104,9 +115,22 @@ def get_am_pm_flights():
         return
 
     print("\nAM Flights:")
-    print(routes[routes['Time'] == 'AM'].to_string(index=False))
+    am_flights = routes[routes['Time'] == 'AM']
+    print(am_flights.to_string(index=False))
+
     print("\nPM Flights:")
-    print(routes[routes['Time'] == 'PM'].to_string(index=False))
+    pm_flights = routes[routes['Time'] == 'PM']
+    print(pm_flights.to_string(index=False))
+
+    # Plot results
+    plt.figure(figsize=(8, 5))
+    counts = [len(am_flights), len(pm_flights)]
+    labels = ['AM Flights', 'PM Flights']
+    plt.bar(labels, counts, color=['blue', 'orange'], edgecolor='black')
+    plt.title('Number of AM and PM Flights')
+    plt.ylabel('Number of Flights')
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
 
 
 def run_program():
