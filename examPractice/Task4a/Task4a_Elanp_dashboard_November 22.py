@@ -11,6 +11,7 @@ def main_menu():
         print("")
         print("########### Please select an option #############")
         print("### 1. View passenger numbers")
+        print(' ')
 
         choice = input('Enter your number selection here: ')
 
@@ -18,9 +19,11 @@ def main_menu():
             int(choice)
         except:
             print("Sorry, you did not enter a valid option")
+            print('')
             flag = True
         else:    
             print('Choice accepted!')
+            print('')
             flag = False
 
     return choice
@@ -38,6 +41,7 @@ def get_depart():
         print("### 4. London Heathrow (LHR)")
         print("### 5. London Luton (LTN)")
         print("### 6. Manchester (MAN)")
+        print(' ')
 
         choice = input('Enter your number selection here: ')
 
@@ -45,9 +49,11 @@ def get_depart():
             int(choice)
         except:
             print("Sorry, you did not enter a valid option")
+            print('')
             flag = True
         else:    
             print('Choice accepted!')
+            print('')
             flag = False
 
     return choice
@@ -65,6 +71,7 @@ def get_destination(depart):
         print("### 4. London Heathrow (LHR)")
         print("### 5. London Luton (LTN)")
         print("### 6. Manchester (MAN)")
+        print(' ')
 
         choice = input('Enter your number selection here: ')
         
@@ -80,9 +87,11 @@ def get_destination(depart):
                 int(choice)
             except:
                 print("Sorry, you did not enter a valid option")
+                print('')
                 flag = True
             else:    
                 print('Choice accepted!')
+                print('')
                 flag = False
 
     return choice
@@ -95,11 +104,13 @@ def get_number_days():
 
         print("########### Please enter the number of previous days of data you wish to see #############")
         choice = input('Enter your number selection here: ')
+        print('')
  
         try:
             int(choice)
         except:
             print("Sorry, you did not enter a valid number")
+            print('')
             flag = True
         else:    
             print("########### You have chosen to see data for the last {} days #############".format(choice))
@@ -138,6 +149,7 @@ def get_data( depart, dest,days):
     extract = df.loc[(df['From'] == depart) & (df['To'] == dest)]
     extract_days = extract.iloc[: , -days: ]
     print("We have found these flights that match your criteria:")
+    print(' ')
     return extract_days
 
 
@@ -152,6 +164,7 @@ dep_choice = convert_men_choice(depart_airport)
 dest_choice = convert_men_choice(destination_airport)
 
 days = get_number_days()
+print('')
 print("You have selected departure from: {}".format(dep_choice))
 print("You have selected destination as: {}".format(dest_choice))
 
