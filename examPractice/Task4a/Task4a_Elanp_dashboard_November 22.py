@@ -108,6 +108,8 @@ def get_number_days():
 
     return int(choice)
 
+
+        
         
 
 def convert_men_choice(choice):
@@ -132,24 +134,12 @@ def convert_men_choice(choice):
 
 
 def get_data( depart, dest,days):
-    df = pd.read_csv(r"C:\Users\oluwa\Documents\pandasCollection\examPractice\Task4a\Task4a_data.csv")
+    df = pd.read_csv("Task4a_data.csv")
     extract = df.loc[(df['From'] == depart) & (df['To'] == dest)]
     extract_days = extract.iloc[: , -days: ]
     print("We have found these flights that match your criteria:")
     return extract_days
 
-def most_passengers_overtime(depart,dest,days):
-    df = pd.read_csv(r"C:\Users\oluwa\Documents\pandasCollection\examPractice\Task4a\Task4a_data.csv")
-    print("### 2. View AM & PM for Routes")
-
-    extract = df.loc[(df['From'] == depart) & (df['To'] == dest)]
-    #print(extract)
-    extract_days = extract.iloc[: , 2]
-
-    return extract_days
-
-def run_program():
-    pass
 
 
 main_menu_choice = main_menu()
@@ -165,12 +155,15 @@ days = get_number_days()
 print("You have selected departure from: {}".format(dep_choice))
 print("You have selected destination as: {}".format(dest_choice))
 
+
+
 extracted_data = get_data(dep_choice, dest_choice, days) 
+
 extract_no_index = extracted_data.to_string(index=False)
+
+
+
 print(extract_no_index)
 
-get_time = most_passengers_overtime(dep_choice, dest_choice, days)
-get_time_no_index = get_time.to_string(index=False)
-print(get_time_no_index)
 
 
