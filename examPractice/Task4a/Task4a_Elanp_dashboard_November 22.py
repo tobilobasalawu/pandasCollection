@@ -1,7 +1,5 @@
 import pandas as pd
 
-
-'''
 def main_menu():
     flag = True
 
@@ -21,7 +19,7 @@ def main_menu():
         except:
             print("Sorry, you did not enter a valid option")
             flag = True
-        else:
+        else:    
             print('Choice accepted!')
             flag = False
 
@@ -48,7 +46,7 @@ def get_depart():
         except:
             print("Sorry, you did not enter a valid option")
             flag = True
-        else:
+        else:    
             print('Choice accepted!')
             flag = False
 
@@ -69,78 +67,94 @@ def get_destination(depart):
         print("### 6. Manchester (MAN)")
 
         choice = input('Enter your number selection here: ')
-
+        
         if choice == depart:
             print("")
             print("")
             print("############### Data entry error ###################")
             print('Destination and departure airports must be different')
             print("")
-            print("")
+            print("")           
         else:
             try:
                 int(choice)
             except:
                 print("Sorry, you did not enter a valid option")
                 flag = True
-            else:
+            else:    
                 print('Choice accepted!')
                 flag = False
 
     return choice
 
-
 def get_number_days():
+
     flag = True
 
     while flag:
 
         print("########### Please enter the number of previous days of data you wish to see #############")
         choice = input('Enter your number selection here: ')
-
+ 
         try:
             int(choice)
         except:
             print("Sorry, you did not enter a valid number")
             flag = True
-        else:
+        else:    
             print("########### You have chosen to see data for the last {} days #############".format(choice))
             flag = False
+        
 
     return int(choice)
 
+        
 
 def convert_men_choice(choice):
     if choice == "1":
         conv_choice = "DUB"
         return conv_choice
     elif choice == "2":
-        conv_choice = "EDI"
+        conv_choice =  "EDI"
         return conv_choice
     elif choice == "3":
-        conv_choice = "GLA"
+        conv_choice =  "GLA"
         return conv_choice
     elif choice == "4":
-        conv_choice = "LHR"
+        conv_choice =  "LHR"
         return conv_choice
     elif choice == "5":
-        conv_choice = "LTN"
+        conv_choice =  "LTN"
         return conv_choice
     else:
-        conv_choice = "MAN"
+        conv_choice =  "MAN"
         return conv_choice
 
 
-def get_data(depart, dest, days):
-    df = pd.read_csv("Task4a_data.csv")
+def get_data( depart, dest,days):
+    df = pd.read_csv(r"C:\Users\oluwa\Documents\pandasCollection\examPractice\Task4a\Task4a_data.csv")
     extract = df.loc[(df['From'] == depart) & (df['To'] == dest)]
-    extract_days = extract.iloc[:, -days:]
+    extract_days = extract.iloc[: , -days: ]
     print("We have found these flights that match your criteria:")
     return extract_days
+
+def most_passengers_overtime(depart,dest,days):
+    df = pd.read_csv(r"C:\Users\oluwa\Documents\pandasCollection\examPractice\Task4a\Task4a_data.csv")
+    print("### 2. View AM & PM for Routes")
+
+    extract = df.loc[(df['From'] == depart) & (df['To'] == dest)]
+    #print(extract)
+    extract_days = extract.iloc[: , 2]
+
+    return extract_days
+
+def run_program():
+    pass
 
 
 main_menu_choice = main_menu()
 depart_airport = get_depart()
+
 
 destination_airport = get_destination(depart_airport)
 
@@ -151,13 +165,12 @@ days = get_number_days()
 print("You have selected departure from: {}".format(dep_choice))
 print("You have selected destination as: {}".format(dest_choice))
 
-extracted_data = get_data(dep_choice, dest_choice, days)
-
+extracted_data = get_data(dep_choice, dest_choice, days) 
 extract_no_index = extracted_data.to_string(index=False)
-
 print(extract_no_index)
-'''
+
+get_time = most_passengers_overtime(dep_choice, dest_choice, days)
+get_time_no_index = get_time.to_string(index=False)
+print(get_time_no_index)
 
 
-def departure_airport_that_has_the_most_passengers_over_time():
-    pass
