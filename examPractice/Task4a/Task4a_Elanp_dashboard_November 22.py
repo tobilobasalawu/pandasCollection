@@ -25,9 +25,7 @@ def main_menu():
             print("Sorry, you did not enter a valid option")
             print('')
             flag = True
-        else:    
-            print('Choice accepted!')
-            print('')
+        else:
             flag = False
 
     return choice
@@ -55,9 +53,7 @@ def get_depart():
             print("Sorry, you did not enter a valid option")
             print('')
             flag = True
-        else:    
-            print('Choice accepted!')
-            print('')
+        else:
             flag = False
 
     return choice
@@ -176,13 +172,15 @@ def AM_and_PM_flights_for_two_selected_routes(depart_route_1, destination_route_
     selected_routes = df.loc[((df['From'] == depart_route_1) & (df['To'] == destination_route_1)) |  ((df['From'] == depart_route_2) & (df['To'] == destination_route_2))]
 
     time_selected_routes = selected_routes.loc[selected_routes['Time'] == time]
-    print(f"The flights for the selected routes are: \n\n{time_selected_routes}")
+    print(f"The flights for the selected routes are: \n\n{time_selected_routes.to_string(index=False)}")
 
 
 def run_program():
     main_menu_choice = main_menu()
 
     if main_menu_choice == '1':
+        print('Choice accepted!')
+        print('')
         depart_airport = get_depart()
 
         destination_airport = get_destination(depart_airport)
@@ -201,10 +199,45 @@ def run_program():
         print(extract_no_index)
 
     elif main_menu_choice == '2':
-        AM_and_PM_flights_for_two_selected_routes()
+        print('Choice accepted!')
+        print('')
+        flag = True
+
+        while flag:
+            print("########### Airport Destination and Departure #############")
+            print("### 1. Dublin (DUB)")
+            print("### 2. Edinburgh (EDI)")
+            print("### 3. Glasgow (GLA")
+            print("### 4. London Heathrow (LHR)")
+            print("### 5. London Luton (LTN)")
+            print("### 6. Manchester (MAN)")
+            print(' ')
+
+            try:
+                depart1 = int(input("Enter the Departure Airport for the First Route: "))
+                des1 = int(input("Enter the Destination Airport for the First Route: "))
+                depart2 = int(input("Enter the Departure Airport for the Second Route: "))
+                des2 = int(input("Enter the Destination Airport for the Second Route: "))
+
+                if 1 < depart1 or  des1 > 6:
+                    print('You have Selected an Invalid input, Try Again')
+                elif 1 <  depart2 or des2 > 6:
+                    print('You have Selected an Invalid input, Try Again')
+                elif depart1 == des1 or depart2 == des2:
+                    print('Destination and departure airports must be different')
+                else:
+                    flag = False
+                    print('Choice Accepted!\n')
+                    AM_and_PM_flights_for_two_selected_routes(convert_men_choice(str(depart1)), convert_men_choice(str(des1)), convert_men_choice(str(depart2)), convert_men_choice(str(des2)), 'AM')
+            except:
+                print('Please enter the correct option\n')
 
     elif main_menu_choice == '3':
+        print('Choice accepted!')
+        print('')
         departure_airport_that_has_the_most_passengers_over_time()
+    else:
+        print('Invalid Choice,please try again')
 
 run_program()
 
