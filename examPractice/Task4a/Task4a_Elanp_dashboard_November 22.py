@@ -1,3 +1,5 @@
+from operator import index
+
 import pandas as pd
 
 def main_menu():
@@ -11,6 +13,8 @@ def main_menu():
         print("")
         print("########### Please select an option #############")
         print("### 1. View passenger numbers")
+        print("### 2. View AM and PM flights for two selected routes")
+        print("### 3. Departure airport that has the most passengers over time.")
         print(' ')
 
         choice = input('Enter your number selection here: ')
@@ -120,8 +124,6 @@ def get_number_days():
     return int(choice)
 
 
-        
-        
 
 def convert_men_choice(choice):
     if choice == "1":
@@ -152,31 +154,59 @@ def get_data( depart, dest,days):
     print(' ')
     return extract_days
 
+def departure_airport_that_has_the_most_passengers_over_time():
+    df = pd.read_csv('Task4a_data.csv')
+
+    date_columns_only = df.iloc[:, 3:]
+    departure_airport_and_date_columns = df.groupby('From')[date_columns_only.columns].sum()
+
+    departure_airport_and_date_columns['Total'] = departure_airport_and_date_columns.sum(axis = 1)
+
+    departure_airport_most_passengers_over_time = departure_airport_and_date_columns['Total'].idxmax()
+    departure_airport_most_passengers_over_time_values = departure_airport_and_date_columns['Total'].max()
+
+    print(departure_airport_and_date_columns.to_string(index=False))
+    print('')
+    print(f"The departure airport that has the most passengers over time is {departure_airport_most_passengers_over_time}, with a whooping passengers number of {departure_airport_most_passengers_over_time_values}")
 
 
-main_menu_choice = main_menu()
-depart_airport = get_depart()
+def AM_and_PM_flights_for_two_selected_routes(depart_route_1, destination_route_1, depart_route_2, destination_route_2, time):
+    df = pd.read_csv('Task4a_data.csv')
+
+    selected_routes = df.loc[((df['From'] == depart_route_1) & (df['To'] == destination_route_1)) |  ((df['From'] == depart_route_2) & (df['To'] == destination_route_2))]
+
+    time_selected_routes = selected_routes.loc[selected_routes['Time'] == time]
+    print(f"The flights for the selected routes are: \n\n{time_selected_routes}")
 
 
-destination_airport = get_destination(depart_airport)
+def run_program():
+    main_menu_choice = main_menu()
 
-dep_choice = convert_men_choice(depart_airport)
-dest_choice = convert_men_choice(destination_airport)
+    if main_menu_choice == '1':
+        depart_airport = get_depart()
 
-days = get_number_days()
-print('')
-print("You have selected departure from: {}".format(dep_choice))
-print("You have selected destination as: {}".format(dest_choice))
+        destination_airport = get_destination(depart_airport)
 
+        dep_choice = convert_men_choice(depart_airport)
+        dest_choice = convert_men_choice(destination_airport)
 
+        days = get_number_days()
+        print('')
+        print("You have selected departure from: {}".format(dep_choice))
+        print("You have selected destination as: {}".format(dest_choice))
 
-extracted_data = get_data(dep_choice, dest_choice, days) 
+        extracted_data = get_data(dep_choice, dest_choice, days)
+        extract_no_index = extracted_data.to_string(index=False)
 
-extract_no_index = extracted_data.to_string(index=False)
+        print(extract_no_index)
 
+    elif main_menu_choice == '2':
+        AM_and_PM_flights_for_two_selected_routes()
 
+    elif main_menu_choice == '3':
+        departure_airport_that_has_the_most_passengers_over_time()
 
-print(extract_no_index)
+run_program()
 
 
 
