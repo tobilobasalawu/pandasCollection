@@ -12,6 +12,7 @@ def main_menu():
         print("")
         print("########### Please select an option ################")
         print("### 1. Total income by source")
+        print(' ')
 
         choice = input('Enter your number selection here: ')
 
@@ -19,6 +20,7 @@ def main_menu():
             int(choice)
         except:
             print("Sorry, you did not enter a valid option")
+            print(' ')
             flag = True
         else:    
             print('Choice accepted!')
@@ -31,7 +33,7 @@ def total_menu ():
     flag = True
 
     while flag:
-
+        print(' ')
         print("####################################################")
         print("############## Total income by source ##############")
         print("####################################################")
@@ -48,9 +50,10 @@ def total_menu ():
             int(choice)
         except:
             print("Sorry, you did not enter a valid option")
+            print(' ')
             flag = True
         else:    
-            print('Choice accepted!')
+            print('\nChoice accepted!')
             flag = False
 
     return choice   
