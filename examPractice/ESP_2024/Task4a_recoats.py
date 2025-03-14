@@ -85,6 +85,34 @@ def get_total_data(total_choice):
     msg = "The total income from {} was: £{}".format(total_choice, total)
     return msg
 
+def different_payment_types_and_income_sources():
+    df = pd.read_csv("Task4a_data.csv")
+
+    different_payment_types_and_income_sources_values = df.groupby('Pay Type').agg({
+        'Tickets': 'sum',
+        'Gift Shop': 'sum',
+        'Snack Stand': 'sum',
+        'Pictures': 'sum'
+    })
+
+    print('The different payment types and income sources over time is: \n')
+    print(different_payment_types_and_income_sources_values)
+
+def income_on_different_days_of_the_week():
+    df = pd.read_csv("Task4a_data.csv")
+
+    income_sources_on_different_days_values = df.groupby('Day').agg({
+        'Tickets' : 'sum',
+        'Gift Shop' : 'sum',
+        'Snack Stand' : 'sum',
+        'Pictures' : 'sum'
+    })
+
+    income_sources_on_different_days_values['Total'] = income_sources_on_different_days_values.sum(axis=1)
+
+    print('The income on the different days of the week over time is: \n')
+    print(income_sources_on_different_days_values)
+
 main_menu_choice = main_menu()
 if main_menu_choice == "1":
     total_men_choice = total_menu()

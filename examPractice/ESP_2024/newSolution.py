@@ -16,7 +16,7 @@ def income_on_different_days_of_the_week():
     print(income_sources_on_different_days_values)
 
 
-def different_payment_types_and_income_sources():
+def different_payment_types_and_income_sources(user_payment_type_input):
     df = pd.read_csv("Task4a_data.csv")
 
     different_payment_types_and_income_sources_values = df.groupby('Pay Type').agg({
@@ -26,9 +26,16 @@ def different_payment_types_and_income_sources():
         'Pictures': 'sum'
     })
 
-    print('The different payment types and income sources over time is: \n')
-    print(different_payment_types_and_income_sources_values)
+    print(f'\nThe Income sources for {user_payment_type_input} overtime is:')
+    if user_payment_type_input.capitalize() == 'Card':
+        print(different_payment_types_and_income_sources_values.iloc[0])
+    elif user_payment_type_input.capitalize() == 'Cash':
+        print(different_payment_types_and_income_sources_values.iloc[1])
+    else:
+        print('The Payment Type you entered is not valid')
+
+
 
 income_on_different_days_of_the_week()
 print(' ')
-different_payment_types_and_income_sources()
+different_payment_types_and_income_sources(input('Enter the Payment type you would view: '))
