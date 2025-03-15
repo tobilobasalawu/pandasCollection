@@ -1,6 +1,7 @@
 import pandas as pd #Importing Data Handling Library -> Pandas
 import matplotlib.pyplot as plt #Importing Data Visualization Library -> Matplotlib
 
+
 def main_menu():
     '''
     The main_menu function outputs the initial menu and checks validates the input
@@ -77,14 +78,19 @@ def get_total_data(total_choice):
 
     try:
         df = pd.read_csv("Task4a_data.csv")
+        if df.empty:
+            raise ValueError
+
+        income = df[["Day", total_choice]]
+        total = income[total_choice].sum()
+        msg = "The total income from {} was: £{}".format(total_choice, total)
+
+        return msg
     except FileNotFoundError:
         print('The data File cannot be found')
+    except ValueError:
+        print('The dataframe is Empty')
 
-    income = df[["Day", total_choice]]
-    total = income[total_choice].sum()
-    msg = "The total income from {} was: £{}".format(total_choice, total)
-
-    return msg
 
 
 def different_payment_types_and_income_sources():
@@ -97,47 +103,55 @@ def different_payment_types_and_income_sources():
 
     try:
         df = pd.read_csv("Task4a_data.csv")
+        if df.empty:
+            raise ValueError
+
+        different_payment_types_and_income_sources_values = df.groupby('Pay Type').agg({
+            'Tickets': 'sum',
+            'Gift Shop': 'sum',
+            'Snack Stand': 'sum',
+            'Pictures': 'sum'
+        })
+
+        flag = True
+
+        while flag:
+            user_payment_type_input = input("\nEnter the Payment type you would view (card or cash): ").capitalize()
+            if user_payment_type_input in {'Card', 'Cash'}:
+
+                if user_payment_type_input.capitalize() == 'Card':
+                    print(f"\nThe income source for {user_payment_type_input} overtime is:")
+                    print(different_payment_types_and_income_sources_values.iloc[0])
+
+                    # This selects the dataframe for the selected payment type and displays it on a line graph
+                    plt.figure(figsize=(10, 6))
+                    plt.plot(different_payment_types_and_income_sources_values.iloc[0])
+                    plt.title(f'Income sources for {user_payment_type_input} overtime')
+                    plt.xlabel('Income Sources')
+                    plt.ylabel('Income Total')
+                    plt.show()
+
+                else:
+                    print(f"\nThe income source for {user_payment_type_input} overtime is:")
+                    print(different_payment_types_and_income_sources_values.iloc[1])
+
+                    # This selects the dataframe for the selected payment type and displays it on a line graph
+                    plt.figure(figsize=(10, 6))
+                    plt.plot(different_payment_types_and_income_sources_values.iloc[1])
+                    plt.title(f'Income sources for {user_payment_type_input} overtime')
+                    plt.xlabel('Income Sources')
+                    plt.ylabel('Income Total')
+                    plt.show()
+
+                flag = False
+            else:
+                print('The Payment type you entered is not valid, Try Again!\n')
+
     except FileNotFoundError:
         print('The data File cannot be found')
+    except ValueError:
+        print('The dataframe is Empty')
 
-    different_payment_types_and_income_sources_values = df.groupby('Pay Type').agg({
-        'Tickets': 'sum',
-        'Gift Shop': 'sum',
-        'Snack Stand': 'sum',
-        'Pictures': 'sum'
-    })
-
-    flag = True
-
-    while flag:
-        user_payment_type_input = input("\nEnter the Payment type you would view (card or cash): ").capitalize()
-        if user_payment_type_input in {'Card', 'Cash'}:
-
-            if user_payment_type_input.capitalize() == 'Card':
-                print(f"\nThe income source for {user_payment_type_input} overtime is:")
-                print(different_payment_types_and_income_sources_values.iloc[0])
-
-                #This selects the dataframe for the selected payment type and displays it in a pie chart
-                plt.figure(figsize=(10, 6))
-                plt.pie(different_payment_types_and_income_sources_values.iloc[0], autopct="%1.1f%%")
-                plt.title(f'Income sources for {user_payment_type_input} overtime')
-                plt.legend(different_payment_types_and_income_sources_values.columns)
-                plt.show()
-
-            else:
-                print(f"\nThe income source for {user_payment_type_input} overtime is:")
-                print(different_payment_types_and_income_sources_values.iloc[1])
-
-                #This selects the dataframe for the selected payment type and displays it in a pie chart
-                plt.figure(figsize=(10, 6))
-                plt.pie(different_payment_types_and_income_sources_values.iloc[1], autopct="%1.1f%%")
-                plt.title(f'Income sources for {user_payment_type_input} overtime')
-                plt.legend(different_payment_types_and_income_sources_values.columns)
-                plt.show()
-
-            flag = False
-        else:
-            print('The Payment type you entered is not valid, Try Again!\n')
 
 
 def income_on_different_days_of_the_week():
@@ -150,29 +164,38 @@ def income_on_different_days_of_the_week():
 
     try:
         df = pd.read_csv("Task4a_data.csv")
+        if df.empty:
+            raise ValueError
+
+        income_sources_on_different_days_values = df.groupby('Day').agg({
+            'Tickets': 'sum',
+            'Gift Shop': 'sum',
+            'Snack Stand': 'sum',
+            'Pictures': 'sum'
+        })
+
+        income_sources_on_different_days_values['Total'] = income_sources_on_different_days_values.sum(axis=1)
+        income_sources_on_different_days_values = income_sources_on_different_days_values.reset_index()
+
+        print('\nThe income on the different days of the week over time is:')
+        print(income_sources_on_different_days_values.to_string(index=False))
+
+        # This selects the total column and say column of the incomes sources on different daysand it displays it on a line graph
+        plt.figure(figsize=(10, 7))
+        plt.xticks(rotation=45)
+        plt.title('Income on different days of the week')
+        plt.xlabel('Days')
+        plt.ylabel('Total Income')
+        plt.plot(income_sources_on_different_days_values['Day'], income_sources_on_different_days_values['Total'],
+                color='skyblue')
+        plt.show()
+
     except FileNotFoundError:
         print('The data File cannot be found')
+    except ValueError:
+        print('The dataframe is Empty')
 
-    income_sources_on_different_days_values = df.groupby('Day').agg({
-        'Tickets' : 'sum',
-        'Gift Shop' : 'sum',
-        'Snack Stand' : 'sum',
-        'Pictures' : 'sum'
-    })
 
-    income_sources_on_different_days_values['Total'] = income_sources_on_different_days_values.sum(axis=1)
-    income_sources_on_different_days_values = income_sources_on_different_days_values.reset_index()
-
-    print('\nThe income on the different days of the week over time is:')
-    print(income_sources_on_different_days_values.to_string(index=False))
-
-    plt.figure(figsize=(10,7))
-    plt.xticks(rotation=45)
-    plt.title('Income on different days of the week')
-    plt.xlabel('Days')
-    plt.ylabel('Total Income')
-    plt.bar(income_sources_on_different_days_values['Day'], income_sources_on_different_days_values['Total'], color = 'skyblue', edgecolor = 'black')
-    plt.show()
 
 
 def execute_main_program():
