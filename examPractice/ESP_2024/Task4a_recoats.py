@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+
 
 # Outputs the initial menu and checks validates the input
 def main_menu():
@@ -6,90 +8,74 @@ def main_menu():
 
     while flag:
 
-        print("""
-            ####################################################
-            ############## Recoats Adventure Park ##############
-            ####################################################
-            ########### Please select an option ################
-            ### 1. Total income by source
-            ### 2. View the different payment types and income sources
-            ### 3. View the income on different days of the week
-        """)
+        print("\n####################################################")
+        print("############## Recoats Adventure Park ##############")
+        print("####################################################")
+        print("########### Please select an option ################")
+        print("### 1. Total income by source")
+        print("### 2. View the different payment types and income sources")
+        print("### 3. View the income on different days of the week\n")
 
         choice = input('Enter your number selection here: ')
 
         try:
             int(choice)
         except:
-            print("Sorry, you did not enter a valid option")
-            print(' ')
+            print("Sorry, you did not enter a valid option\n")
             flag = True
-        else:    
-            print('Choice accepted!')
-            print(' ')
+        else:
             flag = False
 
     return choice
 
+
 # Submenu for totals, provides type check validation for the input
-def total_menu ():
+def get_total_menu_and_total_choice ():
     flag = True
 
     while flag:
+        choice_object = {
+            '1': 'Tickets',
+            '2': 'Gift Shop',
+            '3': 'Snack Stand',
+            '4': 'Pictures'
+        }
+
+        print("\n############## Total income by source ##############")
         print("####################################################")
-        print("############## Total income by source ##############")
-        print("####################################################")
-        print(" ")
         print("########## Please select an income source ##########")
-        print("### 1. Tickets")   
-        print("### 2. Gift Shop") 
-        print("### 3. Snack Stand")  
-        print("### 4. Pictures")
+        for key,values in choice_object.items():
+            print(f"{key} : {values}")
 
-        choice = input('Enter your number selection here: ')
-
-        try:
-            int(choice)
-        except:
-            print("Sorry, you did not enter a valid option")
-            print(' ')
-            flag = True
-        else:    
-            print('\nChoice accepted!')
+        choice = input('\nEnter your number selection here: ')
+        if choice in choice_object:
             flag = False
+            return choice_object[choice]
 
-    return choice   
+        else:
+            print('The option you selected is not valid, Please Try Again')
 
-# takes the total submenu input and converts the number to a string of the source name
-def convert_total_men_coice(total_men_choice):
-    
-    if total_men_choice == "1":
-        tot_choice = "Tickets"
-    elif total_men_choice == "2":
-        tot_choice = "Gift Shop"
-    elif total_men_choice == "3":
-        tot_choice= "Snack Stand"
-    else:
-        tot_choice = "Pictures"  
-    
-    return tot_choice
 
 # creates a new dataframe with the selected income source then creates a total row
 # outputs the final total in a message
 def get_total_data(total_choice):
-    
-    df = pd.read_csv("Task4a_data.csv")
-    
+    try:
+        df = pd.read_csv("Task4a_data.csv")
+    except FileNotFoundError:
+        print('The data File cannot be found')
+
     income = df[["Day", total_choice]]
-
     total = income[total_choice].sum()
-
     msg = "The total income from {} was: £{}".format(total_choice, total)
+
     return msg
 
 
-def different_payment_types_and_income_sources(user_payment_type_input):
-    df = pd.read_csv("Task4a_data.csv")
+def different_payment_types_and_income_sources():
+    try:
+        df = pd.read_csv("Task4a_data.csv")
+    except FileNotFoundError:
+        print('The data File cannot be found')
 
     different_payment_types_and_income_sources_values = df.groupby('Pay Type').agg({
         'Tickets': 'sum',
@@ -98,16 +84,42 @@ def different_payment_types_and_income_sources(user_payment_type_input):
         'Pictures': 'sum'
     })
 
-    print(f'\nThe Income sources for {user_payment_type_input} overtime is:')
-    if user_payment_type_input.capitalize() == 'Card':
-        print(different_payment_types_and_income_sources_values.iloc[0])
-    else:
-        print(different_payment_types_and_income_sources_values.iloc[1])
+    flag = True
 
+    while flag:
+        user_payment_type_input = input("\nEnter the Payment type you would view (card or cash): ").capitalize()
+        if user_payment_type_input in {'Card', 'Cash'}:
+
+            if user_payment_type_input.capitalize() == 'Card':
+                print(f"\nThe income source for {user_payment_type_input} overtime is:")
+                print(different_payment_types_and_income_sources_values.iloc[0])
+
+                plt.figure(figsize=(10, 6))
+                plt.pie(different_payment_types_and_income_sources_values.iloc[0], autopct="%1.1f%%")
+                plt.title(f'Income sources for {user_payment_type_input} overtime')
+                plt.legend(different_payment_types_and_income_sources_values.columns)
+                plt.show()
+
+            else:
+                print(f"\nThe income source for {user_payment_type_input} overtime is:")
+                print(different_payment_types_and_income_sources_values.iloc[1])
+
+                plt.figure(figsize=(10, 6))
+                plt.pie(different_payment_types_and_income_sources_values.iloc[1], autopct="%1.1f%%")
+                plt.title(f'Income sources for {user_payment_type_input} overtime')
+                plt.legend(different_payment_types_and_income_sources_values.columns)
+                plt.show()
+
+            flag = False
+        else:
+            print('The Payment type you entered is not valid, Try Again!\n')
 
 
 def income_on_different_days_of_the_week():
-    df = pd.read_csv("Task4a_data.csv")
+    try:
+        df = pd.read_csv("Task4a_data.csv")
+    except FileNotFoundError:
+        print('The data File cannot be found')
 
     income_sources_on_different_days_values = df.groupby('Day').agg({
         'Tickets' : 'sum',
@@ -117,29 +129,33 @@ def income_on_different_days_of_the_week():
     })
 
     income_sources_on_different_days_values['Total'] = income_sources_on_different_days_values.sum(axis=1)
+    income_sources_on_different_days_values = income_sources_on_different_days_values.reset_index()
 
     print('\nThe income on the different days of the week over time is:')
-    print(income_sources_on_different_days_values)
+    print(income_sources_on_different_days_values.to_string(index=False))
+
+    plt.figure(figsize=(10,7))
+    plt.xticks(rotation=45)
+    plt.title('Income on different days of the week')
+    plt.xlabel('Days')
+    plt.ylabel('Total Income')
+    plt.bar(income_sources_on_different_days_values['Day'], income_sources_on_different_days_values['Total'], color = 'skyblue', edgecolor = 'black')
+    plt.show()
 
 
 def execute_main_program():
-    main_menu_choice = main_menu()
-
     flag = True
 
     while flag:
+        main_menu_choice = main_menu()
+
         if main_menu_choice == "1":
-            total_men_choice = total_menu()
-            total_choice = convert_total_men_coice(total_men_choice)
-            print(get_total_data(total_choice))
+            total_men_choice = get_total_menu_and_total_choice()
+            print(get_total_data(total_men_choice))
             flag = False
         elif main_menu_choice == "2":
-            user_payment_type_input = input("Enter the Payment type you would view: ").capitalize()
-            if user_payment_type_input in {'Card', 'Cash'}:
-                different_payment_types_and_income_sources(user_payment_type_input)
-                flag = False
-            else:
-                print('The Payment type you entered is not valid, Try Again!\n')
+            different_payment_types_and_income_sources()
+            flag = False
         elif main_menu_choice == "3":
             income_on_different_days_of_the_week()
             flag = False
