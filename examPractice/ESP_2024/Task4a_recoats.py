@@ -1,9 +1,13 @@
-import pandas as pd
-import matplotlib.pyplot as plt
+import pandas as pd #Importing Data Handling Library -> Pandas
+import matplotlib.pyplot as plt #Importing Data Visualization Library -> Matplotlib
 
-
-# Outputs the initial menu and checks validates the input
 def main_menu():
+    '''
+    The main_menu function outputs the initial menu and checks validates the input
+    :return:
+    choice - the users input
+    '''
+
     flag = True
 
     while flag:
@@ -29,8 +33,14 @@ def main_menu():
     return choice
 
 
-# Submenu for totals, provides type check validation for the input
 def get_total_menu_and_total_choice ():
+    '''
+    The get_total_menu_and_total_choice function displays a submenu for totals, provides type check validation for the input
+    and creates a new dataframe with the selected income source
+    :return:
+    choice_object[choice] - The selected the income source
+    '''
+
     flag = True
 
     while flag:
@@ -56,9 +66,15 @@ def get_total_menu_and_total_choice ():
             print('The option you selected is not valid, Please Try Again')
 
 
-# creates a new dataframe with the selected income source then creates a total row
-# outputs the final total in a message
+
 def get_total_data(total_choice):
+    '''
+    The get_total_data function outputs the final total in a message
+    :param total_choice: gets the selected income source
+    :return:
+    msg - message displaying the total
+    '''
+
     try:
         df = pd.read_csv("Task4a_data.csv")
     except FileNotFoundError:
@@ -72,6 +88,13 @@ def get_total_data(total_choice):
 
 
 def different_payment_types_and_income_sources():
+    '''
+    The different_payment_types_and_income_sources function displays the different payment types and income sources
+    and also displays the graphical output
+    The groupby and agg function calculates the sum of the different income sources based on the payment type
+    The iloc selects and displays the row of the dataframe (different_payment_types_and_income_sources_values)
+    '''
+
     try:
         df = pd.read_csv("Task4a_data.csv")
     except FileNotFoundError:
@@ -94,6 +117,7 @@ def different_payment_types_and_income_sources():
                 print(f"\nThe income source for {user_payment_type_input} overtime is:")
                 print(different_payment_types_and_income_sources_values.iloc[0])
 
+                #This selects the dataframe for the selected payment type and displays it in a pie chart
                 plt.figure(figsize=(10, 6))
                 plt.pie(different_payment_types_and_income_sources_values.iloc[0], autopct="%1.1f%%")
                 plt.title(f'Income sources for {user_payment_type_input} overtime')
@@ -104,6 +128,7 @@ def different_payment_types_and_income_sources():
                 print(f"\nThe income source for {user_payment_type_input} overtime is:")
                 print(different_payment_types_and_income_sources_values.iloc[1])
 
+                #This selects the dataframe for the selected payment type and displays it in a pie chart
                 plt.figure(figsize=(10, 6))
                 plt.pie(different_payment_types_and_income_sources_values.iloc[1], autopct="%1.1f%%")
                 plt.title(f'Income sources for {user_payment_type_input} overtime')
@@ -116,6 +141,13 @@ def different_payment_types_and_income_sources():
 
 
 def income_on_different_days_of_the_week():
+    '''
+    The income_on_different_days_of_the_week function calculates the income on different days of the week
+    and also displays the graphical output
+    The groupby and agg function calculates the sum of the different income sources based on the Day
+    Then a new column is created that sums all the income sources on each day of the week
+    '''
+
     try:
         df = pd.read_csv("Task4a_data.csv")
     except FileNotFoundError:
@@ -144,6 +176,10 @@ def income_on_different_days_of_the_week():
 
 
 def execute_main_program():
+    '''
+    The execute_main_program function runs the entire program
+    It displays the output of different function based on the options selected from the main_menu
+    '''
     flag = True
 
     while flag:
