@@ -220,5 +220,19 @@ def execute_main_program():
             flag = False
         else:
             print('The choice you selected is not in the menu, Try Again!')
+        
+        
+        run_again = input("\nWould you like to continue?\nSelect 'y' for 'yes'\nSelect 'n' for 'no'\n=>").lower()
+        if run_again == 'y':
+            execute_main_program()
+            flag = False
+        elif run_again == 'n':
+            print('\nThank you coming to Recoats Park')
+            flag = False
+        else:
+            print("\nOnly selected 'n - no' and 'y - yes, Try again")
+            flag = True
+            
 
 execute_main_program()
+
