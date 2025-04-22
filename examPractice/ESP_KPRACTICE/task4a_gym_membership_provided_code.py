@@ -2,7 +2,7 @@ import pandas as pd
 
 # Function 1: Read CSV and get total amount paid for a staff member
 def get_total_paid_for_member(member_name):
-    df = pd.read_csv("Gym_Memberships_Data.csv")
+    df = pd.read_csv("Task_4a.csv")
     filtered = df[df["Member Name"] == member_name]
     total_paid = filtered["Amount Paid"].sum()
     return total_paid
@@ -35,7 +35,7 @@ def main_menu():
     while True:
         option = input("\nSelect an option: ")
         if option == "1":
-            df = pd.read_csv("Gym_Memberships_Data.csv")
+            df = pd.read_csv("Task_4a.csv")
             unique_names = sorted(df["Member Name"].unique())
             number = get_user_selection(unique_names)
             name = get_name_from_number(number, unique_names)
