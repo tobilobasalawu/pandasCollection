@@ -8,12 +8,12 @@ def get_total_paid_for_member():
     while is_valid:
         members_df = df['Member Name'].unique()
         members_name_dict = {str(i+1): name for i,name in enumerate(members_df)}
-        for key, values in members_name_dict.items():
+        for key, values in members_name_dict.items:
             print(f"{key}. {values}")
             
         choice = input("\nEnter the number of the staff member: ")
         if choice not in members_name_dict:
-            print('Invalid Input, try again\n')
+            print('Invalid Input, try again')
         else:
             filtered = df[df["Member Name"] == members_name_dict[choice]]
             total_paid = filtered["Amount Paid"].sum()
