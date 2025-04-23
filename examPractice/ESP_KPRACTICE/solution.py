@@ -69,9 +69,9 @@ def plot_total_visits_per_month_for_all_membership_types(data):
    plt.title('Total visits per month for all membership types')
    plt.show()
 
+
 def income_for_various_membership_types():
     df = pd.read_csv("Task_4a.csv")
-    
     
     income_membership_filter = df.groupby('Membership Type').agg({'Amount Paid' : 'sum'})
     print(f"The total income for various membership type is: \n\n{income_membership_filter}")
@@ -85,6 +85,18 @@ def plot_income_for_various_membership_types(data):
     plt.title('Income for various membership types')
     plt.show()
 
+
+
+def plot_different_members_signup_date(member, df):
+    plt.figure(figsize=(13,8))
+    plt.plot(df['Sign-Up Date'], df['Visits per Month'], marker='o')
+    plt.xlabel('Sign-UP Date')
+    plt.ylabel('Visits Per Month')
+    plt.title(f'Trends and patterns over time for Sign-Up Dates of {member}')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+    
 def different_members_signup_date():
     df = pd.read_csv("Task_4a.csv")
     
@@ -97,10 +109,12 @@ def different_members_signup_date():
         print('Invalid option, please try again')
     else:
         members_signup_date_filter = df.loc[df['Member Name'] == members[user_member_option], 'Sign-Up Date']
+        members_signup_filter = df.loc[df['Member Name'] == members[user_member_option]]
+        plot_different_members_signup_date(members[user_member_option],members_signup_filter)
         print(f"\nThe sign up date for {members[user_member_option]} is: \n{members_signup_date_filter.to_string(index=False)}")
 
 
 
-income_for_various_membership_types()
+different_members_signup_date()
 
 
