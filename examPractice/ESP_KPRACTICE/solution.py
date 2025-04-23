@@ -58,8 +58,16 @@ def total_visits_per_month_for_all_membership_types():
         'Visits per Month' : 'sum'
     })
     print(f"The total visits per month for all membership type is: \n\n{membership_and_visits_filter}")
+    plot_total_visits_per_month_for_all_membership_types(membership_and_visits_filter.reset_index())
     
 
+def plot_total_visits_per_month_for_all_membership_types(data):
+   bars = plt.bar(data['Membership Type'], data['Visits per Month'], color='skyblue', edgecolor='black')
+   plt.bar_label(bars, fontsize=8)
+   plt.xlabel('Membership Type')
+   plt.ylabel('Visits per Month')
+   plt.title('Total visits per month for all membership types')
+   plt.show()
 
 def income_for_various_membership_types():
     df = pd.read_csv("Task_4a.csv")
@@ -85,6 +93,6 @@ def different_members_signup_date():
 
 
 
-staff_members_under_or_over_a_given_amount_paid()
+total_visits_per_month_for_all_membership_types()
 
 
