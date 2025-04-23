@@ -75,7 +75,15 @@ def income_for_various_membership_types():
     
     income_membership_filter = df.groupby('Membership Type').agg({'Amount Paid' : 'sum'})
     print(f"The total income for various membership type is: \n\n{income_membership_filter}")
+    plot_income_for_various_membership_types(income_membership_filter.reset_index())
     
+def plot_income_for_various_membership_types(data):
+    bars = plt.bar(data['Membership Type'], data['Amount Paid'], color='skyblue', edgecolor='black')
+    plt.bar_label(bars, fmt='£%.2f', fontsize=8)
+    plt.xlabel('Membership Type')
+    plt.ylabel('Amount Paid(£)')
+    plt.title('Income for various membership types')
+    plt.show()
 
 def different_members_signup_date():
     df = pd.read_csv("Task_4a.csv")
@@ -93,6 +101,6 @@ def different_members_signup_date():
 
 
 
-total_visits_per_month_for_all_membership_types()
+income_for_various_membership_types()
 
 

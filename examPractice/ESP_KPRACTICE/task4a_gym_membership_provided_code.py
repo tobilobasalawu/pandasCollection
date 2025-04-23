@@ -99,28 +99,19 @@ def plot_total_visits_per_month_for_all_membership_types(data):
 def income_for_various_membership_types():
     df = pd.read_csv("Task_4a.csv")
     
-    
     income_membership_filter = df.groupby('Membership Type').agg({'Amount Paid' : 'sum'})
-    print(f"\nThe total income for various membership type is: \n\n{income_membership_filter}")
+    print(f"The total income for various membership type is: \n\n{income_membership_filter}")
+    plot_income_for_various_membership_types(income_membership_filter.reset_index())
     
+def plot_income_for_various_membership_types(data):
+    bars = plt.bar(data['Membership Type'], data['Amount Paid'], color='skyblue', edgecolor='black')
+    plt.bar_label(bars, fmt='£%.2f', fontsize=8)
+    plt.xlabel('Membership Type')
+    plt.ylabel('Amount Paid(£)')
+    plt.title('Income for various membership types')
+    plt.show()
 
-def different_members_signup_date():
-    df = pd.read_csv("Task_4a.csv")
-    is_valid = True
     
-    while is_valid:
-        members_df = df['Member Name'].unique()
-        members = {str(i+1): name for i,name in enumerate(members_df)}
-        for key,values in members.items():
-            print(f"## {key}. {values}")
-        user_member_option = input('\nPlease select a member to view their sign up date: ')
-        
-        if user_member_option not in members:
-            print('Invalid option, please try again\n')
-        else:
-            members_signup_date_filter = df.loc[df['Member Name'] == members[user_member_option], 'Sign-Up Date']
-            print(f"\nThe sign up date for {members[user_member_option]} is: \n{members_signup_date_filter.to_string(index=False)}")
-            is_valid = False
 
 # Function 4: Main menu
 def main_menu():
