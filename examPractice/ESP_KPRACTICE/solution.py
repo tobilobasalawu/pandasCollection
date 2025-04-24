@@ -1,4 +1,4 @@
-import pandas as pd
+import pandas as pd #import data handling library
 import matplotlib.pyplot as plt
 
 def staff_members_under_or_over_a_given_amount_paid():
