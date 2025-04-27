@@ -1,10 +1,10 @@
 import pandas as pd #import data handling library
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt #importing data visualisation library
 
 def staff_members_under_or_over_a_given_amount_paid():
     df = pd.read_csv("Task_4a.csv")
     grouped_filter = df.groupby('Member Name')['Amount Paid'].sum().reset_index()
-    #print(df)
+
     is_valid = True
     
     while is_valid:
@@ -12,7 +12,7 @@ def staff_members_under_or_over_a_given_amount_paid():
             print("\n##### Select an Option #####")
             print("### 1. View staffs over a given amount")
             print("### 2. View staffs under a given amount")
-            user_input_option = input("=> ")
+            user_input_option = input("## ")
             
             if user_input_option not in {'1', '2'}:
                 print('\nInvalid option selected, please try again')
