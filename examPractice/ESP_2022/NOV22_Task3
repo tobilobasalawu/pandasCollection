@@ -1,0 +1,187 @@
+// - This represents comments in the pseudocode
+
+//The solution must allow users to select a flight route and show the trends for passenger numbers over time.
+
+DECOMPOSITION:
+output: DEFINE METHOD display_flight_routes_departure() - This function displays the departure airpot and allows the user to select an option
+output: DEFINE METHOD display_flight_routes_destination() - This function displays the destination airport and allows the user to select an option
+process: DEFINE METHOD validate_flight_choice() - This function validates the users flight choice(departure and destination) and converts it to the route needed for the data file
+process: DEFINE METHOD convert_menu_choice_str() - This function converts the validated user choice to an string in the CSV/DATA file
+input: DEFINE METHOD get_start_date() - This function allows users to select a start date
+input: DEFINE METHOD get_end_date() - This function allows users to select an end date
+process: DEFINE METHOD get_flight_route_passengers() - This function uses the data handling library(pandas) to filter the csv based on the users input to get the number of passengers
+output: DEFINE METHOD display_graphical_output() - This function uses the data visualization library(matplotlib) to display a line graph fro the user selected flight route to show trends of passenger numbers over time.
+output: DEFINE METHOD display_filght_route_passengers() - This function displays the number of passengers filtered based on the users input
+
+
+START
+
+IMPORT DATA HANDLING LIBRARY(pandas)
+IMPORT DATA VISUALISATION LIBRARY(matplotlib)
+
+
+DEFINE METHOD display_flight_routes_departure()
+	
+	SEND 'The Departure airports avaliable are: ' TO DISPLAY
+	SEND '1. DUB' TO DISPLAY
+	SEND '2. EDI' TO DISPLAY
+	SEND '3. GLA' TO DISPLAY
+	SEND '4. LHR' TO DISPLAY
+	SEND '5. LTN' TO DISPLAY
+	SEND '6. MAN' TO DISPLAY
+	
+	SEND 'Select a departure option(1-6) : ' TO DISPLAY
+	
+	RECEIVE departure_choice(integer) FROM KEYBOARD
+	
+	RETURN departure_choice
+	
+	
+DEFINE METHOD display_flight_routes_destination()
+
+	SEND 'The Destination airports avaliable are: ' TO DISPLAY
+	SEND '1. DUB' TO DISPLAY
+	SEND '2. EDI' TO DISPLAY
+	SEND '3. GLA' TO DISPLAY
+	SEND '4. LHR' TO DISPLAY
+	SEND '5. LTN' TO DISPLAY
+	SEND '6. MAN' TO DISPLAY
+	
+	SEND 'Select a destination option(1-6) : ' TO DISPLAY
+	
+	RECEIVE destination_choice(integer) FROM KEYBOARD
+	
+	RETURN destination_choice
+	
+
+DEFINE METHOD validate_flight_choice()
+	SET is_valid TO TRUE
+	
+	WHILE is_valid
+		SET departure_choice TO display_flight_routes_departure()
+		SET destination_choice TO display_flight_routes_destination()
+		
+		IF departure_choice AND destination_choice IS NOT INTEGER
+			SEND 'Only numbers are accepted, please try again' TO DISPLAY
+		
+		ELSE IF (departure_choice < 1 OR departure_choice > 6) AND (destination_choice < 1 OR destination_choice > 6)
+			SEND 'You have selected an invalid option, please try again' TO DISPLAY
+			
+		ELSE
+			SEND 'You have selected destination airpot: ' + departure_choice + ' destination airport: ' + destination_choice
+			SET user_departure_choice TO departure_choice
+			SET user_destination_choice TO destination_choice
+			
+			SET is_valid TO FALSE
+		
+	RETURN user_departure_choice, user_destination_choice
+	
+
+DEFINE METHOD convert_menu_choice_str(user_departure_choice, user_destination_choice)
+	SET airport_list TO ['DUB' 'EDI' 'GLA' 'LHR' 'LTN' 'MAN']
+	
+	SET converted_departure_choice TO airport_list[user_departure_choice - 1]
+	SET converted_destination_choice TO airport_list[user_destination_choice - 1]
+	
+	RETURN converted_departure_choice, converted_destination_choice
+
+	
+DEFINE METHOD get_start_date()
+
+	SET is_valid TO TRUE
+	
+	WHILE is_valid
+	
+		TRY
+			SEND 'Enter a start date(DD/MM/YYYY): ' TO DISPLAY
+			RECEIVE date_choice FROM KEYBOARD
+			
+			SET user_start_date TO PARSE_DATE(date_choice, DD/MM/YYYY)
+			SEND 'You have selected start date: ' + user_start_date TO DISPLAY
+			
+			SET is_valid TO FALSE
+			
+			
+		CATCH ERRORS FROM TRY
+			SEND 'You have selected an invalid input, please try again' TO DISPLAY
+			
+			
+	RETURN user_start_date
+			
+
+DEFINE METHOD get_end_date()
+
+	SET is_valid TO TRUE
+	
+	WHILE is_valid
+	
+		TRY
+			SEND 'Enter a end date(DD/MM/YYYY): ' TO DISPLAY
+			RECEIVE date_choice FROM KEYBOARD
+			
+			SET user_end_date TO PARSE_DATE(date_choice, DD/MM/YYYY)
+			SEND 'You have selected end date: ' + user_end_date TO DISPLAY
+			
+			SET is_valid TO FALSE
+			
+			
+		CATCH ERRORS FROM TRY
+			SEND 'You have selected an invalid input, please try again' TO DISPLAY
+			
+			
+	RETURN user_end_date
+	
+	
+DEFINE METHOD get_flight_route_passengers(converted_departure_choice, converted_destination_choice, user_start_date, user_end_date)
+
+	SET dataframe TO READ_CSV('Task3_data')
+	
+	SET route_filter TO dataframe EXTRACT ROWS WHERE dataframe['From'] == user_departure_choice AND dataframe['To'] == user_destination_choice
+	SET all_columns TO SELECT dataframe.columns TO LIST
+	SET date_columns TO all_columns[2:]
+
+	SET start_date_index TO date_columns INDEX (user_start_date)
+	SET end_date_index TO date_columns INDEX (user_end_date)
+
+	SET selected_date TO date_columns[user_start_date : user_end_date + 1]
+
+	SET flight_route_passengers TO route_filter[selected_date]
+
+	RETURN flight_route_passengers
+
+
+DEFINE METHOD display_filght_route_passengers(flight_route_passengers, converted_departure_choice, converted_destination_choice)
+	SEND 'We have found data matching your criteria' TO DISPLAY
+
+	SEND 'Trends for passengers numbers for route ' + converted_departure_choice + ' TO ' + converted_destination_choice TO DISPLAY
+	SEND flight_route_passengers TO DISPLAY
+
+
+
+DEFINE METHOD display_graphical_output(flight_route_passengers, user_start_date, user_end_date, converted_departure_choice, converted_destination_choice)
+	FROM flight_route_passengers
+
+	SET date_columns TO flight_route_passengers EXTRACT COLUMN user_start_date:user_end_date
+	SET total TO flight_route_passengers.SUM(AXIS = 1)
+
+	PLOT LINE CHART:
+		X-AXIS: date_columns
+		Y-AXIS: total
+		TITLE: 'Trends for passengers numbers for route ' + converted_departure_choice + ' TO ' + converted_destination_choice
+
+
+
+DEFINE METHOD main()
+	SET user_departure_choice, user_destination_choice TO validate_flight_choice()
+	SET converted_departure_choice, converted_destination_choice TO convert_menu_choice_str()
+
+	SET user_start_date TO get_start_date
+	SET user_end_date TO get_end_date
+	SET flight_route_passengers TO get_flight_route_passengers(converted_departure_choice, converted_destination_choice, user_start_date, user_end_date)
+
+	CALL display_filght_route_passengers(flight_route_passengers, converted_departure_choice, converted_destination_choice)
+	CALL display_graphical_output(flight_route_passengers, user_start_date, user_end_date, converted_departure_choice, converted_destination_choice)
+
+
+
+END
