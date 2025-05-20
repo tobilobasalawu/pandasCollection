@@ -1,0 +1,132 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def select_issue_type():
+    '''
+    This function displays a menu that allows users to select an issue type
+    return:
+    user_issue_type_choice - This returns the validated user choice from the menu
+    '''
+    is_valid = True
+    issue_types = ['Collection Issue','Delivery Issue', 'Service Issue', 'Customer Complaint Issue']
+    
+    while is_valid:
+        print('\nWelcome to Bote parcels company')
+        for index,issue in enumerate(issue_types):
+            print(f'## {index + 1}. {issue}')
+        
+        try:
+            user_input = int(input('\nSelect an Issue type(1-4): '))
+            
+            if user_input < 1 or user_input > 4:
+                print('\nYou have selected an invalid option, please try again')
+            else:
+                user_issue_type_choice = issue_types[user_input - 1]
+                print(f'You selected: {user_input} - {user_issue_type_choice}')
+                is_valid = False
+                
+            
+        except:
+            print('Only Numbers are accepted, please try again!')
+ 
+    return user_issue_type_choice
+
+ 
+def total_number_of_issues_recorded_for_the_selected_issue_type(user_input):
+    '''
+    user_input: This param accepts the user validated input from the select_issue_type function
+    This functions calculates the total number of issues for the selected user issue type
+    '''
+    df = pd.read_csv('Task3_yesterday.csv')
+    issue_type_filter = df['Issue Type']
+    
+    issue_type_filter_count = issue_type_filter.value_counts().reset_index()
+    
+    user_choice_issue_type_count = issue_type_filter_count.loc[issue_type_filter_count['Issue Type'] == user_input, 'count']
+    print(f'\nThe Total number of issue for {user_input} is {user_choice_issue_type_count.to_string(index=False)}')
+
+
+
+def how_the_selected_issue_type_was_resolved(user_input):
+    '''
+    user_input:  This param accepts the user validated input from the select_issue_type function
+    This function calculates how the selected issue was resolved
+    return: This returns a dataframe containting the resolution methods for the selected issue type
+    '''
+    df = pd.read_csv('Task3_yesterday.csv')
+    
+    issue_type_filter = df.groupby(['Issue Type', 'How Issue Was Resolved'])['No. of Days to Resolve'].sum().reset_index()
+    resolution_selected_issue_type = issue_type_filter.loc[issue_type_filter['Issue Type'] == user_input, 'How Issue Was Resolved']
+    
+    resolution_and_all_data = issue_type_filter.loc[issue_type_filter['Issue Type'] == user_input]
+    
+    print(f'\nHow {user_input} was resolved:')
+    print(resolution_selected_issue_type.to_string(index=False))
+    plot_total_number_of_issues_recorded_for_the_selected_issue_type(resolution_and_all_data, user_input)
+
+
+def plot_total_number_of_issues_recorded_for_the_selected_issue_type(data, user_input):
+    '''
+    data: This param accepts a dataframe containting the resolution methods for the selected issue type
+    user_input: user_input:  This param accepts the user validated input from the select_issue_type function
+    This function graphical breakdown of  all resolution methods
+    '''
+    plt.bar(data['How Issue Was Resolved'], data['No. of Days to Resolve'])
+    
+    plt.xlabel('How Issue Was Resolved')
+    plt.xticks(rotation=30)
+    plt.ylabel('No. of Days to Resolve')
+    plt.title(f'Graphical representation how {user_input} was resolved ')
+
+    plt.tight_layout()
+    plt.show()
+
+
+def the_average_number_of_days_taken_to_resolve_the_selected_issue_type(user_input):
+    '''
+    user_input:  This param accepts the user validated input from the select_issue_type function
+    This functions calculates the average the days to resolve the selcted issue type
+    '''
+    df = pd.read_csv('Task3_yesterday.csv')
+    
+    issue_type_filter = df.groupby(['Issue Type'])['No. of Days to Resolve'].mean().reset_index()
+    average_number_for_selected_issue_type = issue_type_filter.loc[issue_type_filter['Issue Type'] == user_input, 'No. of Days to Resolve']
+    print(f'\nThe average number of days taken to resolve {user_input} is {average_number_for_selected_issue_type.to_string(index=False)} ')
+    
+
+
+def main():
+    #This is the main menu function allows users to select an operation and view the results
+    while True:
+        print(' ')
+        print("## Welcome to TOBI'S Devlivery company")
+        print('# 1. View total number of issues recorded')
+        print('# 2. View breakdown of how issue type was resolved')
+        print('# 3. View the average number of days taken to resolve issue type')
+        print('# 4. Exit')
+    
+        
+        try:
+            menu_choice = int(input('\nEnter an option from the menu (1-4): '))
+            
+            if menu_choice == 1:
+                user_input = select_issue_type()
+                total_number_of_issues_recorded_for_the_selected_issue_type(user_input)
+            elif menu_choice == 2:
+                user_input = select_issue_type()
+                how_the_selected_issue_type_was_resolved(user_input)
+            elif menu_choice == 3:
+                user_input = select_issue_type()
+                the_average_number_of_days_taken_to_resolve_the_selected_issue_type(user_input)
+            elif menu_choice == 4:
+                print('Exiting program....')
+                break
+            else:
+                print("\nYou have selected an invalid option, try again!")
+                
+        except:
+            print('\nOnly numbers are accepted, please try again!')
+    
+    
+main()
