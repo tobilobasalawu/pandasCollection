@@ -8,6 +8,7 @@ def select_issue_type():
     return:
     user_issue_type_choice - This returns the validated user choice from the menu
     '''
+
     is_valid = True
     issue_types = ['Collection Issue','Delivery Issue', 'Service Issue', 'Customer Complaint Issue']
     
@@ -38,6 +39,7 @@ def total_number_of_issues_recorded_for_the_selected_issue_type(user_input):
     user_input: This param accepts the user validated input from the select_issue_type function
     This functions calculates the total number of issues for the selected user issue type
     '''
+
     df = pd.read_csv('Task3_yesterday.csv')
     issue_type_filter = df['Issue Type']
     
@@ -54,6 +56,7 @@ def how_the_selected_issue_type_was_resolved(user_input):
     This function calculates how the selected issue was resolved
     return: This returns a dataframe containting the resolution methods for the selected issue type
     '''
+
     df = pd.read_csv('Task3_yesterday.csv')
     
     issue_type_filter = df.groupby(['Issue Type', 'How Issue Was Resolved'])['No. of Days to Resolve'].sum().reset_index()
@@ -75,7 +78,7 @@ def plot_total_number_of_issues_recorded_for_the_selected_issue_type(data, user_
     plt.bar(data['How Issue Was Resolved'], data['No. of Days to Resolve'])
     
     plt.xlabel('How Issue Was Resolved')
-    plt.xticks(rotation=30)
+    plt.xticks(rotation=20)
     plt.ylabel('No. of Days to Resolve')
     plt.title(f'Graphical representation how {user_input} was resolved ')
 
