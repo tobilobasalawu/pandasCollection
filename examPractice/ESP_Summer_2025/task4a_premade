@@ -1,0 +1,49 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+def select_issue_type():
+    is_valid = True
+    issue_types = ['Collection Issue','Delivery Issue', 'Service Issue', 'Customer Complaint Issue']
+    
+    while is_valid:
+        print('\nWelcome to Bote parcels company')
+        for index,issue in enumerate(issue_types):
+            print(f'## {index + 1}. {issue}')
+        
+        try:
+            user_input = int(input('Select an Issue type(1-4): '))
+            
+            if user_input < 1 or user_input > 4:
+                print('\nYou have selected an invalid option, please try again')
+            else:
+                user_issue_type_choice = issue_types[user_input - 1]
+                print(f'\nYou selected: {user_input} - {user_issue_type_choice}')
+                is_valid = False
+                
+            
+        except:
+            print('Only Numbers are accepted, please try again!')
+ 
+    return user_issue_type_choice
+
+
+ 
+def total_number_of_issues_recorded_for_the_selected_issue_type(user_input):
+    df = pd.read_csv('Task3_yesterday.csv')
+    issue_type_filter = df['Issue Type']
+    
+    issue_type_filter_count = issue_type_filter.value_counts().reset_index()
+    
+    user_choice_issue_type_count = issue_type_filter_count.loc[issue_type_filter_count['Issue Type'] == user_input, 'count']
+    print(f'\nThe Total number of issue for {user_input} is {user_choice_issue_type_count.to_string(index=False)}')
+
+def plot_total_number_of_issues_recorded_for_the_selected_issue_type(df):
+    df.plot(kind='bar')
+    
+
+def main():
+    user_input = select_issue_type()
+    total_number_of_issues_recorded_for_the_selected_issue_type(user_input)
+    
+main()
