@@ -40,6 +40,7 @@ def total_number_of_issues_recorded_for_the_selected_issue_type(user_input):
 
 def plot_total_number_of_issues_recorded_for_the_selected_issue_type(df):
     df.plot(kind='bar')
+		plt.show()
     
 
 def main():
